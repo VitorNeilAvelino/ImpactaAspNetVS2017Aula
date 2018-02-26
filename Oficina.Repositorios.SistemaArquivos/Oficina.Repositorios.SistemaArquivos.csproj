@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{19B91507-6B7E-4AC1-B64C-92B63F013EFC}</ProjectGuid>
+    <ProjectGuid>{6BCD7015-9E3B-416F-ACB5-CF0AE7F31D75}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Oficina.Dominio</RootNamespace>
-    <AssemblyName>Oficina.Dominio</AssemblyName>
+    <RootNamespace>Oficina.Repositorios.SistemaArquivos</RootNamespace>
+    <AssemblyName>Oficina.Repositorios.SistemaArquivos</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,16 +42,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cambio.cs" />
-    <Compile Include="Combustivel.cs" />
-    <Compile Include="Cor.cs" />
-    <Compile Include="Marca.cs" />
-    <Compile Include="Modelo.cs" />
+    <Compile Include="CorRepositorio.cs" />
+    <Compile Include="MarcaRepositorio.cs" />
+    <Compile Include="ModeloRepositorio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Veiculo.cs" />
+    <Compile Include="VeiculoRepositorio.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Veiculo.cd" />
+    <ProjectReference Include="..\Oficina.Dominio\Oficina.Dominio.csproj">
+      <Project>{19b91507-6b7e-4ac1-b64c-92b63f013efc}</Project>
+      <Name>Oficina.Dominio</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

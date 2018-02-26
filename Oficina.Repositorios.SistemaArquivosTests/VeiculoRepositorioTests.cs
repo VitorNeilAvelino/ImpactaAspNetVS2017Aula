@@ -1,0 +1,36 @@
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Oficina.Dominio;
+using Oficina.Repositorios.SistemaArquivos;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Oficina.Repositorios.SistemaArquivos.Tests
+{
+    [TestClass()]
+    public class VeiculoRepositorioTests
+    {
+        [TestMethod()]
+        public void InserirTest()
+        {
+            var veiculoRepositorio = new VeiculoRepositorio();
+
+            var veiculo = new Veiculo();
+            veiculo.Ano = 2014;
+            veiculo.Cambio = Cambio.Automatico;
+            veiculo.Combustivel = Combustivel.Alcool;
+
+            veiculo.Cor = new Cor(); 
+            veiculo.Cor.Id = 1;
+            veiculo.Cor.Nome = "Azul";
+
+            veiculo.Modelo = new ModeloRepositorio().SelecionarPorMarca(1).First();
+            veiculo.Observacao = "Observação";
+            veiculo.Placa = "abc1234";
+
+            veiculoRepositorio.Inserir(veiculo);
+        }
+    }
+}
