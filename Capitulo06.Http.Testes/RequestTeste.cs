@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -22,6 +23,13 @@ namespace Capitulo06.Http.Testes
             //request.CookieContainer.Add(new Cookie("Tema", "azul")); //O parâmetro '{0}' não pode ser uma cadeia de caracteres vazia. Nome do parâmetro: cookie.Domain
 
             Console.WriteLine(GetRequestToString(request));
+
+            Console.WriteLine(new string('-', 100));
+
+            var response = (HttpWebResponse)request.GetResponse();
+            var reader = new StreamReader(response.GetResponseStream());
+
+            Console.Write(reader.ReadToEnd());
         }
 
         public string GetRequestToString(HttpWebRequest request)
@@ -35,6 +43,11 @@ namespace Capitulo06.Http.Testes
             }
 
             return requestLine + Environment.NewLine + headers;
+        }
+
+        public string GetResponseToString()
+        {
+            return "";
         }
     }
 }
