@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Text;
+using System.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Capitulo06.Http.Testes
@@ -14,8 +16,8 @@ namespace Capitulo06.Http.Testes
             var request = (HttpWebRequest)WebRequest.Create("http://www.example.com?usuarioId=42&cpf=22&");
             request.Method = "GET";
 
-            //request.UserAgent = "Visual Studio";
-            //request.Date = DateTime.Now;
+            request.UserAgent = "Visual Studio";
+            request.Date = DateTime.Now;
 
             //request.ProtocolVersion = new Version("2.0"); //No momento, só há suporte para solicitações das versões HTTP/1.0 e HTTP/1.1.
             //request.Headers.Add(HttpRequestHeader.UserAgent, "Visual Studio"); //O cabeçalho 'User-Agent' deve ser modificado com a propriedade ou o método adequado.
@@ -35,13 +37,37 @@ namespace Capitulo06.Http.Testes
             Console.WriteLine(GetResponseToString(response));
         }
 
-        public string GetRequestToString(HttpWebRequest request)
+        [TestMethod]
+        public void RequestPostMethodTeste()
+        {
+            var request = (HttpWebRequest)WebRequest.Create("https://httpbin.org/post");
+            request.Method = "POST";
+
+            var dados = "nome=Vítor&cpf=123&endereco=R. Tal";
+            var bytes = new ASCIIEncoding().GetBytes(HttpUtility.UrlEncode(dados));
+
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = bytes.Length;
+            request.GetRequestStream().Write(bytes, 0, bytes.Length);
+
+            Console.WriteLine(GetRequestToString(request, dados));
+
+            Console.WriteLine(new string('-', 100));
+
+            var response = (HttpWebResponse)request.GetResponse();
+
+            Console.WriteLine(GetResponseToString(response));
+        }
+
+        public string GetRequestToString(HttpWebRequest request, string dados = null)
         {
             var requestLine = $"{request.Method} {request.RequestUri} HTTP/{request.ProtocolVersion}";
 
             return requestLine +
                 Environment.NewLine +
-                GetHeaders(request.Headers);
+                GetHeaders(request.Headers) +
+                Environment.NewLine +
+                dados;
         }
 
         private static string GetHeaders(WebHeaderCollection header)
