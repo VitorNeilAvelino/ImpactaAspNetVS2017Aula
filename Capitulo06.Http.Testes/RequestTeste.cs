@@ -9,9 +9,9 @@ namespace Capitulo06.Http.Testes
     public class HttpTeste
     {
         [TestMethod]
-        public void GetRequestTeste()
+        public void RequestGetMethodTeste()
         {
-            var request = (HttpWebRequest)WebRequest.Create("http://www.example.com");
+            var request = (HttpWebRequest)WebRequest.Create("http://www.example.com?usuarioId=42&cpf=22&");
             request.Method = "GET";
 
             //request.UserAgent = "Visual Studio";
@@ -26,28 +26,46 @@ namespace Capitulo06.Http.Testes
 
             Console.WriteLine(new string('-', 100));
 
-            var response = (HttpWebResponse)request.GetResponse();
-            var reader = new StreamReader(response.GetResponseStream());
+            Console.WriteLine("Query string: " + request.RequestUri.Query);
 
-            Console.Write(reader.ReadToEnd());
+            Console.WriteLine(new string('-', 100));
+
+            var response = (HttpWebResponse)request.GetResponse();
+
+            Console.WriteLine(GetResponseToString(response));
         }
 
         public string GetRequestToString(HttpWebRequest request)
         {
             var requestLine = $"{request.Method} {request.RequestUri} HTTP/{request.ProtocolVersion}";
-            var headers = "";
 
-            foreach (var key in request.Headers.AllKeys)
-            {
-                headers += $"{key}: {request.Headers[key]}" + Environment.NewLine;
-            }
-
-            return requestLine + Environment.NewLine + headers;
+            return requestLine +
+                Environment.NewLine +
+                GetHeaders(request.Headers);
         }
 
-        public string GetResponseToString()
+        private static string GetHeaders(WebHeaderCollection header)
         {
-            return "";
+            var headers = "";
+
+            foreach (var key in header.AllKeys)
+            {
+                headers += $"{key}: {header[key]}" + Environment.NewLine;
+            }
+
+            return headers;
+        }
+
+        public string GetResponseToString(HttpWebResponse response)
+        {
+            var statusLine = $"HTTP/{response.ProtocolVersion} {(int)response.StatusCode} {response.StatusDescription}";
+            var reader = new StreamReader(response.GetResponseStream());
+
+            return statusLine + 
+                Environment.NewLine + 
+                GetHeaders(response.Headers) +
+                Environment.NewLine +
+                reader.ReadToEnd();
         }
     }
 }
