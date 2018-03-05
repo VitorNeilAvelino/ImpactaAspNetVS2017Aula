@@ -1,0 +1,44 @@
+﻿@using Oficina.AspNet
+@{ var _veiculoAplicacao = new VeiculoAplicacao();}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cadastro de veículos</title>
+</head>
+<body>
+    <form>
+        <h1>Cadastro de veículos</h1>
+        <hr />
+        <label for="placa">Placa</label>
+        <input type="text" id="placa" />
+        <br />
+
+        <label for="marca">Marca</label>
+        <select id="marca" onchange="obterModelos(this.value);">
+            <option value="">Selecione</option>
+            @{ foreach (var marca in _veiculoAplicacao.Marcas)
+                {
+                    <option value="@marca.Id" selected="@Convert.ToBoolean(_veiculoAplicacao.MarcaSelecionada == marca.Id.ToString())">@marca.Nome</option>
+                }}
+        </select>
+        <br />
+
+        <label for="modelo">Modelo</label>
+        <select id="modelo">
+            <option value="">Selecione</option>
+            @{ foreach (var modelo in _veiculoAplicacao.Modelos)
+                {
+                    <option value="@modelo.Id">@modelo.Nome</option>
+                }}
+        </select>
+
+    </form>
+</body>
+</html>
+
+<script type="text/javascript">
+    function obterModelos(marcaId) {
+        document.location.href = "Veiculo?marcaId=" + marcaId;
+    }
+</script>

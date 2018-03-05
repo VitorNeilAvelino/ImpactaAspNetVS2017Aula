@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<veiculos>
+  <Veiculo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <Id>0</Id>
+    <Placa>abc1234</Placa>
+    <Modelo>
+      <Id>1</Id>
+      <Marca>
+        <Id>1</Id>
+        <Nome>VW</Nome>
+      </Marca>
+      <Descricao>Fox</Descricao>
+    </Modelo>
+    <Combustivel>Alcool</Combustivel>
+    <Cor>
+      <Id>1</Id>
+      <Nome>Azul</Nome>
+    </Cor>
+    <Cambio>Automatico</Cambio>
+    <Ano>2014</Ano>
+    <Observacao>Observação</Observacao>
+  </Veiculo>
+</veiculos>

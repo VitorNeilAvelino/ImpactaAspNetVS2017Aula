@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelos>
+  <modelo>
+    <id>1</id>
+    <marcaId>1</marcaId>
+    <nome>Fox</nome>
+  </modelo>
+  <modelo>
+    <id>2</id>
+    <marcaId>2</marcaId>
+    <nome>Fiesta</nome>
+  </modelo>
+  <modelo>
+    <id>3</id>
+    <marcaId>3</marcaId>
+    <nome>Bravo</nome>
+  </modelo>
+  <modelo>
+    <id>4</id>
+    <marcaId>3</marcaId>
+    <nome>Uno</nome>
+  </modelo>
+</modelos>

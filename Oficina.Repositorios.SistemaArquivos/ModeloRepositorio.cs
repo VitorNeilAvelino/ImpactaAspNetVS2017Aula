@@ -23,7 +23,7 @@ namespace Oficina.Repositorios.SistemaArquivos
                 var modelo = new Modelo();
 
                 modelo.Id = Convert.ToInt32(elemento.Element("id").Value);
-                modelo.Descricao = elemento.Element("descricao").Value;
+                modelo.Nome = elemento.Element("nome").Value;
                 modelo.Marca = new MarcaRepositorio().Selecionar(marcaId);
 
                 modelos.Add(modelo);

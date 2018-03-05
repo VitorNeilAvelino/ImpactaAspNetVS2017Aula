@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oficina.Repositorios.Sistem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Capitulo06.Http.Testes", "Capitulo06.Http.Testes\Capitulo06.Http.Testes.csproj", "{368806A7-4351-49B9-974E-6CD1B13CA176}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oficina.AspNet", "Oficina.AspNet\Oficina.AspNet.csproj", "{4F0DB1A4-B9FA-4CA7-998E-7DF2C3E0A8A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +67,10 @@ Global
 		{368806A7-4351-49B9-974E-6CD1B13CA176}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{368806A7-4351-49B9-974E-6CD1B13CA176}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{368806A7-4351-49B9-974E-6CD1B13CA176}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F0DB1A4-B9FA-4CA7-998E-7DF2C3E0A8A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F0DB1A4-B9FA-4CA7-998E-7DF2C3E0A8A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F0DB1A4-B9FA-4CA7-998E-7DF2C3E0A8A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F0DB1A4-B9FA-4CA7-998E-7DF2C3E0A8A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{19B91507-6B7E-4AC1-B64C-92B63F013EFC} = {D300BE21-170F-4AF3-B544-65FE442DF633}
 		{6BCD7015-9E3B-416F-ACB5-CF0AE7F31D75} = {D300BE21-170F-4AF3-B544-65FE442DF633}
 		{C51D8FD0-12DD-4AF6-9D60-57F0FBDB7520} = {D300BE21-170F-4AF3-B544-65FE442DF633}
+		{4F0DB1A4-B9FA-4CA7-998E-7DF2C3E0A8A2} = {D300BE21-170F-4AF3-B544-65FE442DF633}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CF2A6197-E629-49E9-9FD2-C73F4BD21901}
