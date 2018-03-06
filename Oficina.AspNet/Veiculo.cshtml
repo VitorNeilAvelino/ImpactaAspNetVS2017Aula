@@ -7,13 +7,10 @@
     <title>Cadastro de veículos</title>
 </head>
 <body>
-    <form>
-        <h1>Cadastro de veículos</h1>
-        <hr />
-        <label for="placa">Placa</label>
-        <input type="text" id="placa" />
-        <br />
+    <h1>Cadastro de veículos</h1>
+    <hr />
 
+    <form>
         <label for="marca">Marca</label>
         <select id="marca" onchange="obterModelos(this.value);">
             <option value="">Selecione</option>
@@ -32,6 +29,11 @@
                     <option value="@modelo.Id">@modelo.Nome</option>
                 }}
         </select>
+        <br />
+
+        <label for="placa">Placa</label>
+        <input type="text" id="placa" />
+        <br />
 
     </form>
 </body>
