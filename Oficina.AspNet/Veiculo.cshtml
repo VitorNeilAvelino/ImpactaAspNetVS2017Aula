@@ -5,6 +5,12 @@
 <html>
 <head>
     <title>Cadastro de veículos</title>
+    <style>
+        label{
+            display: inline-block;
+            min-width: 100px;
+        }
+    </style>
 </head>
 <body>
     <h1>Cadastro de veículos</h1>
@@ -36,11 +42,12 @@
         <br />
 
     </form>
+
+    <script type="text/javascript">
+        function obterModelos(marcaId) {
+            var nomePagina = document.location.pathname;
+            document.location.href = nomePagina + "?marcaId=" + marcaId;
+        }
+    </script>
 </body>
 </html>
-
-<script type="text/javascript">
-    function obterModelos(marcaId) {
-        document.location.href = "Veiculo?marcaId=" + marcaId;
-    }
-</script>
