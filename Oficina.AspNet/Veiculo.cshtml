@@ -6,6 +6,11 @@
 <head>
     <title>Cadastro de veículos</title>
     <style>
+        body {
+            font-family: 'Segoe UI';
+            font-size: 16px;
+        }
+
         label {
             display: inline-block;
             min-width: 100px;
@@ -23,6 +28,11 @@
     </style>
 </head>
 <body>
+    @if (IsPost)
+    {
+        _veiculoAplicacao.Inserir();
+        Response.Redirect("Veiculo");
+    }
     <h1>Cadastro de veículos</h1>
     <hr />
 
@@ -83,6 +93,11 @@
                     <option value="@((int)cambio)">@cambio</option>
                 }}
         </select>
+        <br />
+
+        <label for="observacao">Observação</label>
+        <br />
+        <textarea id="observacao" rows="10" cols="40"></textarea>
         <br />
 
         <input type="submit" value="Gravar" />
