@@ -9,9 +9,17 @@ namespace Oficina.AspNet
 {
     public class VeiculoAplicacao
     {
+        MarcaRepositorio _marcaRepositorio = new MarcaRepositorio();
+        ModeloRepositorio _modeloRepositorio = new ModeloRepositorio();
+        CorRepositorio _corRepositorio = new CorRepositorio();
+        VeiculoRepositorio _veiculoRepositorio = new VeiculoRepositorio();
+
         public VeiculoAplicacao()
         {
-            PopularControles();
+            if (HttpContext.Current.Request.HttpMethod != "POST")
+            {
+                PopularControles();
+            }
         }
 
         public List<Marca> Marcas { get; private set; }
@@ -23,21 +31,33 @@ namespace Oficina.AspNet
 
         private void PopularControles()
         {
-            var marcaRepositorio = new MarcaRepositorio();
-            var modeloRepositorio = new ModeloRepositorio();
-            var corRepositorio = new CorRepositorio();
-
-            Marcas = marcaRepositorio.Selecionar();
+            Marcas = _marcaRepositorio.Selecionar();
             MarcaSelecionada = HttpContext.Current.Request.QueryString["marcaId"];
 
             if (!string.IsNullOrEmpty(MarcaSelecionada))
             {
-                Modelos = modeloRepositorio.SelecionarPorMarca(Convert.ToInt32(MarcaSelecionada)); 
+                Modelos = _modeloRepositorio.SelecionarPorMarca(Convert.ToInt32(MarcaSelecionada)); 
             }
 
-            Cores = corRepositorio.Selecionar();
+            Cores = _corRepositorio.Selecionar();
             Combustiveis = Enum.GetValues(typeof(Combustivel)).Cast<Combustivel>().ToList();
             Cambios = Enum.GetValues(typeof(Cambio)).Cast<Cambio>().ToList();
         }
+
+        public void Inserir()
+        {
+            var veiculo = new Veiculo();
+            var formulario = HttpContext.Current.Request.Form;
+
+            veiculo.Ano = Convert.ToInt32(formulario["ano"]);
+            veiculo.Cambio = (Cambio)Convert.ToInt32(formulario["cambio"]);
+            veiculo.Combustivel = (Combustivel)Convert.ToInt32(formulario["combustivel"]);
+            veiculo.Cor = _corRepositorio.Selecionar(Convert.ToInt32(formulario["cor"]));
+            veiculo.Modelo = _modeloRepositorio.Selecionar(Convert.ToInt32(formulario["modelo"]));
+            veiculo.Observacao = formulario["observacao"];
+            veiculo.Placa = formulario["placa"];
+
+            _veiculoRepositorio.Inserir(veiculo);
+        } 
     }
 }
