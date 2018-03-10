@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2008
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Capitulo01.Variaveis", "Capitulo01.Variaveis\Capitulo01.Variaveis.csproj", "{8177E0EB-630F-4CB8-A675-E079ECD77BC7}"
 EndProject
@@ -18,6 +18,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oficina.Repositorios.SistemaArquivos", "Oficina.Repositorios.SistemaArquivos\Oficina.Repositorios.SistemaArquivos.csproj", "{22B422AF-1070-41B0-BF96-0DB4031A0FC6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oficina.Repositorios.SistemaArquivosTests", "Oficina.Repositorios.SistemaArquivosTests\Oficina.Repositorios.SistemaArquivosTests.csproj", "{ECB773CB-DE11-4D02-B12B-E25D78318995}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Oficina", "Oficina", "{2CA8AE04-987C-4DCA-A10C-61206149D3B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Capitulo06.Http.Testes", "Capitulo06.Http.Testes\Capitulo06.Http.Testes.csproj", "{7C531AFB-08E1-4323-9E84-DB6FB2E950D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oficina.AspNet", "Oficina.AspNet\Oficina.AspNet.csproj", "{EF0FF27A-F20C-42D6-9D9B-28B50F957605}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,9 +63,23 @@ Global
 		{ECB773CB-DE11-4D02-B12B-E25D78318995}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECB773CB-DE11-4D02-B12B-E25D78318995}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECB773CB-DE11-4D02-B12B-E25D78318995}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C531AFB-08E1-4323-9E84-DB6FB2E950D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C531AFB-08E1-4323-9E84-DB6FB2E950D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C531AFB-08E1-4323-9E84-DB6FB2E950D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C531AFB-08E1-4323-9E84-DB6FB2E950D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF0FF27A-F20C-42D6-9D9B-28B50F957605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF0FF27A-F20C-42D6-9D9B-28B50F957605}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF0FF27A-F20C-42D6-9D9B-28B50F957605}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF0FF27A-F20C-42D6-9D9B-28B50F957605}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{19B91507-6B7E-4AC1-B64C-92B63F013EFC} = {2CA8AE04-987C-4DCA-A10C-61206149D3B7}
+		{22B422AF-1070-41B0-BF96-0DB4031A0FC6} = {2CA8AE04-987C-4DCA-A10C-61206149D3B7}
+		{ECB773CB-DE11-4D02-B12B-E25D78318995} = {2CA8AE04-987C-4DCA-A10C-61206149D3B7}
+		{EF0FF27A-F20C-42D6-9D9B-28B50F957605} = {2CA8AE04-987C-4DCA-A10C-61206149D3B7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CF2A6197-E629-49E9-9FD2-C73F4BD21901}

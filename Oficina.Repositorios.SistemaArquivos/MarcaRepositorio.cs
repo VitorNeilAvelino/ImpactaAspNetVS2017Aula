@@ -1,6 +1,7 @@
 ﻿using Oficina.Dominio;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 
 namespace Oficina.Repositorios.SistemaArquivos
