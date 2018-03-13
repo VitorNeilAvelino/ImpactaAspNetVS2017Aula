@@ -46,7 +46,7 @@ namespace Oficina.AspNet
 
         public void Inserir()
         {
-            var veiculo = new Veiculo();
+            var veiculo = new VeiculoPasseio();
             var formulario = HttpContext.Current.Request.Form;
 
             veiculo.Ano = Convert.ToInt32(formulario["ano"]);

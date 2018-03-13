@@ -11,8 +11,8 @@ namespace Oficina.Repositorios.SistemaArquivos.Tests
         public void InserirTest()
         {
             var veiculoRepositorio = new VeiculoRepositorio();
+            var veiculo = new VeiculoPasseio();
 
-            var veiculo = new Veiculo();
             veiculo.Ano = 2014;
             veiculo.Cambio = Cambio.Automatico;
             veiculo.Combustivel = Combustivel.Alcool;
