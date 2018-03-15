@@ -16,10 +16,10 @@ namespace Oficina.AspNet
 
         public VeiculoAplicacao()
         {
-            if (HttpContext.Current.Request.HttpMethod != "POST")
-            {
+            //if (HttpContext.Current.Request.HttpMethod != "POST")
+            //{
                 PopularControles();
-            }
+            //}
         }
 
         public List<Marca> Marcas { get; private set; }
@@ -46,18 +46,32 @@ namespace Oficina.AspNet
 
         public void Inserir()
         {
-            var veiculo = new VeiculoPasseio();
-            var formulario = HttpContext.Current.Request.Form;
+            try
+            {
+                var veiculo = new VeiculoPasseio();
+                var formulario = HttpContext.Current.Request.Form;
 
-            veiculo.Ano = Convert.ToInt32(formulario["ano"]);
-            veiculo.Cambio = (Cambio)Convert.ToInt32(formulario["cambio"]);
-            veiculo.Combustivel = (Combustivel)Convert.ToInt32(formulario["combustivel"]);
-            veiculo.Cor = _corRepositorio.Selecionar(Convert.ToInt32(formulario["cor"]));
-            veiculo.Modelo = _modeloRepositorio.Selecionar(Convert.ToInt32(formulario["modelo"]));
-            veiculo.Observacao = formulario["observacao"];
-            veiculo.Placa = formulario["placa"];
+                veiculo.Ano = Convert.ToInt32(formulario["ano"]);
+                veiculo.Cambio = (Cambio)Convert.ToInt32(formulario["cambio"]);
+                veiculo.Combustivel = (Combustivel)Convert.ToInt32(formulario["combustivel"]);
+                veiculo.Cor = _corRepositorio.Selecionar(Convert.ToInt32(formulario["cor"]));
+                veiculo.Modelo = _modeloRepositorio.Selecionar(Convert.ToInt32(formulario["modelo"]));
+                veiculo.Observacao = formulario["observacao"];
+                veiculo.Placa = formulario["placa"];
 
-            _veiculoRepositorio.Inserir(veiculo);
+                _veiculoRepositorio.Inserir(veiculo);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                HttpContext.Current.Items.Add("MensagemErro", "Arquivo sem permissão de gravação.");
+                throw;
+            }
+            catch (Exception exception)
+            {
+                HttpContext.Current.Items.Add("MensagemErro", "Ooops! Ocorreu um erro.");
+                //logar o erro contido no objeto exception.
+                throw;
+            }
         } 
     }
 }
