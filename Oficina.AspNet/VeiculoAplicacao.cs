@@ -2,6 +2,7 @@
 using Oficina.Repositorios.SistemaArquivos;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -58,8 +59,14 @@ namespace Oficina.AspNet
                 veiculo.Modelo = _modeloRepositorio.Selecionar(Convert.ToInt32(formulario["modelo"]));
                 veiculo.Observacao = formulario["observacao"];
                 veiculo.Placa = formulario["placa"];
+                veiculo.Carroceria = TipoCarroceria.Hatch;
 
                 _veiculoRepositorio.Inserir(veiculo);
+            }
+            catch (FileNotFoundException ex)
+            {
+                HttpContext.Current.Items.Add("MensagemErro", $"Arquivo {ex.FileName} não encontrado.");
+                throw;
             }
             catch (UnauthorizedAccessException)
             {
