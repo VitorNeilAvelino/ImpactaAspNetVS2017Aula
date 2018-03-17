@@ -16,18 +16,21 @@ namespace Oficina.Repositorios.SistemaArquivos.Tests
         public void InserirTest()
         {
             var repositorio =new VeiculoRepositorio();
-            var veiculo = new Veiculo();
+            var veiculo = new VeiculoPasseio();
 
             veiculo.Ano = 2014;
             veiculo.Cambio = Cambio.Manual;
             veiculo.Combustivel = Combustivel.Flex;
             veiculo.Cor = new CorRepositorio().Selecionar(1);
-            veiculo.Id = 2;
+            //veiculo.Id = 2;
             veiculo.Modelo = new ModeloRepositorio().Selecionar(1);
             veiculo.Observacao = "Obs";
             veiculo.Placa = "XYZ2222";
+            veiculo.Carroceria = TipoCarroceria.Hatch;
 
             repositorio.Inserir(veiculo);
+
+            Console.WriteLine(veiculo.ToString());
         }
     }
 }

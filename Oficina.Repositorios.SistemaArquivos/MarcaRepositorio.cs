@@ -10,6 +10,7 @@ namespace Oficina.Repositorios.SistemaArquivos
     {
         private string _caminhoArquivoMarca = ConfigurationManager.AppSettings["caminhoArquivoMarca"];
 
+        //ToDo: OO - polimofirsmo por sobrecarga.
         public List<Marca> Selecionar()
         {
             var marcas = new List<Marca>();
@@ -53,5 +54,10 @@ namespace Oficina.Repositorios.SistemaArquivos
 
             return marca;
         }
+
+        //public Marca Selecionar(string marcaId)
+        //{
+
+        //}
     }
 }

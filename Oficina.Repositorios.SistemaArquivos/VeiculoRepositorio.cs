@@ -12,12 +12,12 @@ namespace Oficina.Repositorios.SistemaArquivos
     {
         private string _caminhoArquivoVeiculo = ConfigurationManager.AppSettings["caminhoArquivoVeiculo"];
 
-        public void Inserir(Veiculo veiculo)
+        public void Inserir(VeiculoPasseio veiculo)
         {
             var veiculos = XDocument.Load(_caminhoArquivoVeiculo);
 
             var registro = new StringWriter();
-            new XmlSerializer(typeof(Veiculo))
+            new XmlSerializer(typeof(VeiculoPasseio))
                 .Serialize(registro, veiculo);
 
             veiculos.Root.Add(XElement.Parse(registro.ToString()));
