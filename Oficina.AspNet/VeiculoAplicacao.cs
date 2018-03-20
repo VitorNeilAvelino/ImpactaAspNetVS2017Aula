@@ -63,7 +63,7 @@ namespace Oficina.AspNet
 
                 _veiculoRepositorio.Inserir(veiculo);
             }
-            catch (FileNotFoundException ex)
+            catch (FileNotFoundException ex) when (!ex.FileName.Contains("Senha"))
             {
                 HttpContext.Current.Items.Add("MensagemErro", $"Arquivo {ex.FileName} não encontrado.");
                 throw;
@@ -73,11 +73,20 @@ namespace Oficina.AspNet
                 HttpContext.Current.Items.Add("MensagemErro", "Arquivo sem permissão de gravação.");
                 throw;
             }
+            catch (DirectoryNotFoundException)
+            {
+                HttpContext.Current.Items.Add("MensagemErro", $"Caminho não encontrado.");
+                throw;
+            }
             catch (Exception exception)
             {
                 HttpContext.Current.Items.Add("MensagemErro", "Ooops! Ocorreu um erro.");
                 //logar o erro contido no objeto exception.
                 throw;
+            }
+            finally
+            {
+                // Opcional - se presente, é executado sempre, independente de sucesso, erro ou qualquer return.
             }
         } 
     }
