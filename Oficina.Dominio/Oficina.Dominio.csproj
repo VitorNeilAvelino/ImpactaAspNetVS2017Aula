@@ -44,6 +44,7 @@
     <Compile Include="Caminhao.cs" />
     <Compile Include="Combustivel.cs" />
     <Compile Include="Cor.cs" />
+    <Compile Include="FaturamentoException.cs" />
     <Compile Include="Marca.cs" />
     <Compile Include="Modelo.cs" />
     <Compile Include="Moto.cs" />
