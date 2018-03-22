@@ -19,7 +19,7 @@ namespace Oficina.AspNet
         {
             //if (HttpContext.Current.Request.HttpMethod != "POST")
             //{
-                PopularControles();
+            PopularControles();
             //}
         }
 
@@ -37,12 +37,26 @@ namespace Oficina.AspNet
 
             if (!string.IsNullOrEmpty(MarcaSelecionada))
             {
-                Modelos = _modeloRepositorio.SelecionarPorMarca(Convert.ToInt32(MarcaSelecionada)); 
+                Modelos = _modeloRepositorio.SelecionarPorMarca(Convert.ToInt32(MarcaSelecionada));
             }
+
+            ObterVeiculos();
 
             Cores = _corRepositorio.Selecionar();
             Combustiveis = Enum.GetValues(typeof(Combustivel)).Cast<Combustivel>().ToList();
             Cambios = Enum.GetValues(typeof(Cambio)).Cast<Cambio>().ToList();
+        }
+
+        private List<VeiculoPasseio> ObterVeiculos()
+        {
+            var veiculos = new List<VeiculoPasseio>();
+
+            for (int i = 0; i < int.MaxValue/1000; i++)
+            {
+                veiculos.Add(new VeiculoPasseio());
+            }
+
+            return veiculos;
         }
 
         public void Inserir()
@@ -88,6 +102,6 @@ namespace Oficina.AspNet
             {
                 // Opcional - se presente, é executado sempre, independente de sucesso, erro ou qualquer return.
             }
-        } 
+        }
     }
 }
