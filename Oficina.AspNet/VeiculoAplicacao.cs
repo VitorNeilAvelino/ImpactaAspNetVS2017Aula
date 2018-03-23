@@ -51,7 +51,7 @@ namespace Oficina.AspNet
         {
             var veiculos = new List<VeiculoPasseio>();
 
-            for (int i = 0; i < int.MaxValue/1000; i++)
+            for (int i = 0; i < 2000000; i++)
             {
                 veiculos.Add(new VeiculoPasseio());
             }
