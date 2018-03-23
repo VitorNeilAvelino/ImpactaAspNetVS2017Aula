@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Capitulo06.Http.Testes", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oficina.AspNet", "Oficina.AspNet\Oficina.AspNet.csproj", "{4F0DB1A4-B9FA-4CA7-998E-7DF2C3E0A8A2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Capitulo09.EntityFramework.ModelFirst", "Capitulo09.EntityFramework.ModelFirst\Capitulo09.EntityFramework.ModelFirst.csproj", "{DA006CCB-D2BC-4211-8156-F159E2461B7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{4F0DB1A4-B9FA-4CA7-998E-7DF2C3E0A8A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F0DB1A4-B9FA-4CA7-998E-7DF2C3E0A8A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F0DB1A4-B9FA-4CA7-998E-7DF2C3E0A8A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA006CCB-D2BC-4211-8156-F159E2461B7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA006CCB-D2BC-4211-8156-F159E2461B7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA006CCB-D2BC-4211-8156-F159E2461B7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA006CCB-D2BC-4211-8156-F159E2461B7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
