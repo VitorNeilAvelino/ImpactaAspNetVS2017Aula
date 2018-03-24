@@ -57,6 +57,17 @@ namespace Capitulo04.Colecoes.Testes
             Console.WriteLine(Media(1.6m, 2.5m, 58, 4.4m));
         }
 
+        [TestMethod]
+        public void StringsSaoVetoresTeste()
+        {
+            var nome = "Vítor";
+
+            foreach (var caractere in nome)
+            {
+                Console.WriteLine(caractere);
+            }
+        }
+
         private decimal Media(decimal valor1, decimal valor2)
         {
             return (valor1 + valor2) / 2;
