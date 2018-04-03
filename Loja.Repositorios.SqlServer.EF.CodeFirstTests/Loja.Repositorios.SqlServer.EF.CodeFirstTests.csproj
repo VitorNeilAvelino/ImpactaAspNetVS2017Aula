@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C51D8FD0-12DD-4AF6-9D60-57F0FBDB7520}</ProjectGuid>
+    <ProjectGuid>{9930516A-3F73-4242-A912-C270716AE38B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Oficina.Repositorios.SistemaArquivosTests</RootNamespace>
-    <AssemblyName>Oficina.Repositorios.SistemaArquivosTests</AssemblyName>
+    <RootNamespace>Loja.Repositorios.SqlServer.EF.CodeFirstTests</RootNamespace>
+    <AssemblyName>Loja.Repositorios.SqlServer.EF.CodeFirstTests</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -39,6 +39,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.2.0\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
@@ -57,32 +63,22 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="CorRepositorioTests.cs" />
-    <Compile Include="MarcaRepositorioTests.cs" />
-    <Compile Include="ModeloRepositorioTests.cs" />
+    <Compile Include="LojaDbContextTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VeiculoRepositorioTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="Scripts\jquery-2.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Oficina.Dominio\Oficina.Dominio.csproj">
-      <Project>{19B91507-6B7E-4AC1-B64C-92B63F013EFC}</Project>
-      <Name>Oficina.Dominio</Name>
+    <ProjectReference Include="..\Loja.Dominio\Loja.Dominio.csproj">
+      <Project>{D9D26060-C3C9-4355-A6FA-E54811BA45E9}</Project>
+      <Name>Loja.Dominio</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Oficina.Repositorios.SistemaArquivos\Oficina.Repositorios.SistemaArquivos.csproj">
-      <Project>{6BCD7015-9E3B-416F-ACB5-CF0AE7F31D75}</Project>
-      <Name>Oficina.Repositorios.SistemaArquivos</Name>
+    <ProjectReference Include="..\Loja.Repositorios.SqlServer.EF.CodeFirst\Loja.Repositorios.SqlServer.EF.CodeFirst.csproj">
+      <Project>{EA738EC5-9F41-451B-88EC-FBE72B81516B}</Project>
+      <Name>Loja.Repositorios.SqlServer.EF.CodeFirst</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\jquery-2.1.1.intellisense.js" />
-    <Content Include="Scripts\jquery-2.1.1.js" />
-    <Content Include="Scripts\jquery-2.1.1.min.js" />
-    <Content Include="Scripts\nugetexample.js" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
@@ -106,7 +102,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>Este projeto faz referência a pacotes do NuGet que não estão presentes neste computador. Use a Restauração de Pacotes do NuGet para baixá-los.  Para obter mais informações, consulte http://go.microsoft.com/fwlink/?LinkID=322105. O arquivo ausente é {0}.</ErrorText>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MSTest.TestAdapter.1.2.0\build\net45\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.1.2.0\build\net45\MSTest.TestAdapter.props'))" />
     <Error Condition="!Exists('..\packages\MSTest.TestAdapter.1.2.0\build\net45\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.1.2.0\build\net45\MSTest.TestAdapter.targets'))" />
