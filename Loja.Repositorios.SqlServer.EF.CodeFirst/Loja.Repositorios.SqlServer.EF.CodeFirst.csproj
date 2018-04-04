@@ -48,6 +48,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LojaDbContext.cs" />
+    <Compile Include="LojaDbInitializer.cs" />
+    <Compile Include="Migrations\201804040134062_InitialCreate.cs" />
+    <Compile Include="Migrations\201804040134062_InitialCreate.Designer.cs">
+      <DependentUpon>201804040134062_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804040151253_AlterarProdutoDescontinuadoParaAtivo.cs" />
+    <Compile Include="Migrations\201804040151253_AlterarProdutoDescontinuadoParaAtivo.Designer.cs">
+      <DependentUpon>201804040151253_AlterarProdutoDescontinuadoParaAtivo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="ModelConfiguration\CategoriaConfiguration.cs" />
+    <Compile Include="ModelConfiguration\ProdutoConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +71,14 @@
       <Project>{D9D26060-C3C9-4355-A6FA-E54811BA45E9}</Project>
       <Name>Loja.Dominio</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201804040134062_InitialCreate.resx">
+      <DependentUpon>201804040134062_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804040151253_AlterarProdutoDescontinuadoParaAtivo.resx">
+      <DependentUpon>201804040151253_AlterarProdutoDescontinuadoParaAtivo.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
