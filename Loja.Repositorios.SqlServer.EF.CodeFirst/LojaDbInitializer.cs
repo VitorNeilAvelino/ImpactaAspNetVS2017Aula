@@ -21,13 +21,13 @@ namespace Loja.Repositorios.SqlServer.EF.CodeFirst
             var grampeador = new Produto();
             grampeador.Nome = "Grampeador";
             grampeador.Preco = 16.06m;
-            grampeador.Estoque = 6;
+            grampeador.QuantidadeEstoque = 6;
             grampeador.Categoria = contexto.Categorias.Single(c => c.Nome == "Papelaria");
 
             var penDrive = new Produto();
             penDrive.Nome = "Pen drive";
             penDrive.Preco = 19.22m;
-            penDrive.Estoque = 22;
+            penDrive.QuantidadeEstoque = 22;
             penDrive.Categoria = contexto.Categorias.Single(c => c.Nome == "Informática");
 
             return new List<Produto> { grampeador, penDrive };

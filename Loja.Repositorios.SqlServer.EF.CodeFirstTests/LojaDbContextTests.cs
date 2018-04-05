@@ -35,7 +35,7 @@ namespace Loja.Repositorios.SqlServer.EF.CodeFirst.Tests
         public void InserirProdutoTeste()
         {
             var produto = new Produto();
-            produto.Estoque = 43;
+            produto.QuantidadeEstoque = 43;
             produto.Nome = "Caneta";
             produto.Preco = 21.43m;
 

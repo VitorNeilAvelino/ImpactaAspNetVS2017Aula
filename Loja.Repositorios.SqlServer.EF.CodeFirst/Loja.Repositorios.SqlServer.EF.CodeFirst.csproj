@@ -57,6 +57,10 @@
     <Compile Include="Migrations\201804040151253_AlterarProdutoDescontinuadoParaAtivo.Designer.cs">
       <DependentUpon>201804040151253_AlterarProdutoDescontinuadoParaAtivo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804050034432_RenameProdutoEstoque.cs" />
+    <Compile Include="Migrations\201804050034432_RenameProdutoEstoque.Designer.cs">
+      <DependentUpon>201804050034432_RenameProdutoEstoque.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelConfiguration\CategoriaConfiguration.cs" />
     <Compile Include="ModelConfiguration\ProdutoConfiguration.cs" />
@@ -78,6 +82,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804040151253_AlterarProdutoDescontinuadoParaAtivo.resx">
       <DependentUpon>201804040151253_AlterarProdutoDescontinuadoParaAtivo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804050034432_RenameProdutoEstoque.resx">
+      <DependentUpon>201804050034432_RenameProdutoEstoque.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
