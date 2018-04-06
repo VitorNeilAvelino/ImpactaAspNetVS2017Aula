@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Loja.Repositorios.SqlServer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Loja.Repositorios.SqlServer.EF.CodeFirstTests", "Loja.Repositorios.SqlServer.EF.CodeFirstTests\Loja.Repositorios.SqlServer.EF.CodeFirstTests.csproj", "{9930516A-3F73-4242-A912-C270716AE38B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Loja.Mvc", "Loja.Mvc\Loja.Mvc.csproj", "{256FE938-D469-4926-A032-0CC6A83647F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,10 @@ Global
 		{9930516A-3F73-4242-A912-C270716AE38B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9930516A-3F73-4242-A912-C270716AE38B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9930516A-3F73-4242-A912-C270716AE38B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{256FE938-D469-4926-A032-0CC6A83647F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{256FE938-D469-4926-A032-0CC6A83647F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{256FE938-D469-4926-A032-0CC6A83647F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{256FE938-D469-4926-A032-0CC6A83647F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,6 +115,7 @@ Global
 		{D9D26060-C3C9-4355-A6FA-E54811BA45E9} = {D0085A14-987E-4D29-98EB-7D40D4719AB3}
 		{EA738EC5-9F41-451B-88EC-FBE72B81516B} = {D0085A14-987E-4D29-98EB-7D40D4719AB3}
 		{9930516A-3F73-4242-A912-C270716AE38B} = {D0085A14-987E-4D29-98EB-7D40D4719AB3}
+		{256FE938-D469-4926-A032-0CC6A83647F8} = {D0085A14-987E-4D29-98EB-7D40D4719AB3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CF2A6197-E629-49E9-9FD2-C73F4BD21901}
