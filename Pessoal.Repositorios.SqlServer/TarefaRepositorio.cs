@@ -67,7 +67,7 @@ namespace Pessoal.Repositorios.SqlServer
                 {
                     comando.CommandType = CommandType.StoredProcedure;
 
-                    using (var registro =  comando.ExecuteReader())
+                    using (var registro = comando.ExecuteReader())
                     {
                         while (registro.Read())
                         {
@@ -82,9 +82,62 @@ namespace Pessoal.Repositorios.SqlServer
             return tarefas;
         }
 
+        public Tarefa Selecionar(int id)
+        {
+            Tarefa tarefa = null;
+
+            using (var conexao = new SqlConnection(_stringConexao))
+            {
+                conexao.Open();
+
+                const string nomeProcedure = "TarefaSelecionar";
+
+                using (var comando = new SqlCommand(nomeProcedure, conexao))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("Id", id);
+
+                    using (var registro = comando.ExecuteReader())
+                    {
+                        if (registro.Read())
+                        {
+                            tarefa = Mapear(registro);
+                        }
+                    }
+                }                
+            }
+
+            return tarefa;
+        }
+
+        public void Excluir(int id)
+        {
+            using (var conexao = new SqlConnection(_stringConexao))
+            {
+                conexao.Open();
+
+                const string nomeProcedure = "TarefaExcluir";
+
+                using (var comando = new SqlCommand(nomeProcedure, conexao))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("Id", id);
+                    comando.ExecuteNonQuery();
+                }                
+            }
+        }
+
         private Tarefa Mapear(SqlDataReader registro)
         {
-            throw new NotImplementedException();
+            var tarefa = new Tarefa();
+
+            tarefa.Id = Convert.ToInt32(registro["Id"]);
+            tarefa.Nome = registro["Nome"].ToString();
+            tarefa.Prioridade = (Prioridade)registro["Prioridade"];
+            tarefa.Concluida = Convert.ToBoolean(registro["Concluida"]);
+            tarefa.Obervacao = Convert.ToString(registro["Observacao"]);
+
+            return tarefa;
         }
 
         private SqlParameter[] Mapear(Tarefa tarefa)

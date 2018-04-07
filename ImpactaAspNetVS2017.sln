@@ -35,6 +35,39 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pessoal.Repositorios.SqlSer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pessoal.Repositorios.SqlServerTests", "Pessoal.Repositorios.SqlServerTests\Pessoal.Repositorios.SqlServerTests.csproj", "{0558B46C-1778-4886-9145-8C161181A817}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Pessoal.Database", "Pessoal.Database\Pessoal.Database.sqlproj", "{EEC2471F-965F-4E09-881E-C31BFCBF21D1}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Pessoal.WebForms", "Pessoal.WebForms\", "{403EEF61-7C8E-4C57-84F8-8DF0AEF9A34C}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.7"
+		ProjectReferences = "{10db92a6-f343-4622-be39-8a062badd792}|Pessoal.Dominio.dll;{11ff5a1a-3dfd-4a21-9e9a-fcd7d61ec7fb}|Pessoal.Repositorios.SqlServer.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_49941"
+		Debug.AspNetCompiler.PhysicalPath = "Pessoal.WebForms\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_49941\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_49941"
+		Release.AspNetCompiler.PhysicalPath = "Pessoal.WebForms\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_49941\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "49941"
+		SlnRelativePath = "Pessoal.WebForms\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Loja", "Loja", "{A86F6068-33ED-4AF1-B786-0D93F6712B51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Loja.Dominio", "Loja.Dominio\Loja.Dominio.csproj", "{AD3F1B39-DB02-4ADE-B446-02B2EC832A8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Loja.Repositorios.SqlServer.EFCodeFirst", "Loja.Repositorios.SqlServer.EFCodeFirst\Loja.Repositorios.SqlServer.EFCodeFirst.csproj", "{1EBB58F8-1DDD-48C2-8AB8-FE2AE5052C33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Loja.Repositorios.SqlServer.EFCodeFirstTests", "Loja.Repositorios.SqlServer.EFCodeFirstTests\Loja.Repositorios.SqlServer.EFCodeFirstTests.csproj", "{D4E35F6D-3A2B-445D-AAF7-7BF6BCCB83B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +130,28 @@ Global
 		{0558B46C-1778-4886-9145-8C161181A817}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0558B46C-1778-4886-9145-8C161181A817}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0558B46C-1778-4886-9145-8C161181A817}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEC2471F-965F-4E09-881E-C31BFCBF21D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEC2471F-965F-4E09-881E-C31BFCBF21D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEC2471F-965F-4E09-881E-C31BFCBF21D1}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{EEC2471F-965F-4E09-881E-C31BFCBF21D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEC2471F-965F-4E09-881E-C31BFCBF21D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEC2471F-965F-4E09-881E-C31BFCBF21D1}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{403EEF61-7C8E-4C57-84F8-8DF0AEF9A34C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{403EEF61-7C8E-4C57-84F8-8DF0AEF9A34C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{403EEF61-7C8E-4C57-84F8-8DF0AEF9A34C}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{403EEF61-7C8E-4C57-84F8-8DF0AEF9A34C}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{AD3F1B39-DB02-4ADE-B446-02B2EC832A8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD3F1B39-DB02-4ADE-B446-02B2EC832A8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD3F1B39-DB02-4ADE-B446-02B2EC832A8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD3F1B39-DB02-4ADE-B446-02B2EC832A8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EBB58F8-1DDD-48C2-8AB8-FE2AE5052C33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EBB58F8-1DDD-48C2-8AB8-FE2AE5052C33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EBB58F8-1DDD-48C2-8AB8-FE2AE5052C33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EBB58F8-1DDD-48C2-8AB8-FE2AE5052C33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4E35F6D-3A2B-445D-AAF7-7BF6BCCB83B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4E35F6D-3A2B-445D-AAF7-7BF6BCCB83B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4E35F6D-3A2B-445D-AAF7-7BF6BCCB83B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4E35F6D-3A2B-445D-AAF7-7BF6BCCB83B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,6 +164,11 @@ Global
 		{10DB92A6-F343-4622-BE39-8A062BADD792} = {97763C78-9A3B-4FC3-9496-54B8F006AD62}
 		{11FF5A1A-3DFD-4A21-9E9A-FCD7D61EC7FB} = {97763C78-9A3B-4FC3-9496-54B8F006AD62}
 		{0558B46C-1778-4886-9145-8C161181A817} = {97763C78-9A3B-4FC3-9496-54B8F006AD62}
+		{EEC2471F-965F-4E09-881E-C31BFCBF21D1} = {97763C78-9A3B-4FC3-9496-54B8F006AD62}
+		{403EEF61-7C8E-4C57-84F8-8DF0AEF9A34C} = {97763C78-9A3B-4FC3-9496-54B8F006AD62}
+		{AD3F1B39-DB02-4ADE-B446-02B2EC832A8D} = {A86F6068-33ED-4AF1-B786-0D93F6712B51}
+		{1EBB58F8-1DDD-48C2-8AB8-FE2AE5052C33} = {A86F6068-33ED-4AF1-B786-0D93F6712B51}
+		{D4E35F6D-3A2B-445D-AAF7-7BF6BCCB83B5} = {A86F6068-33ED-4AF1-B786-0D93F6712B51}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CF2A6197-E629-49E9-9FD2-C73F4BD21901}
