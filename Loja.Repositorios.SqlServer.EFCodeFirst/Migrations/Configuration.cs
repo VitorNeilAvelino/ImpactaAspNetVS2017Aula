@@ -1,11 +1,10 @@
 namespace Loja.Repositorios.SqlServer.EFCodeFirst.Migrations
 {
-    using System;
-    using System.Data.Entity;
+    using Loja.Dominio;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Loja.Repositorios.SqlServer.EFCodeFirst.LojaDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<LojaDbContext>
     {
         public Configuration()
         {
@@ -13,12 +12,30 @@ namespace Loja.Repositorios.SqlServer.EFCodeFirst.Migrations
             ContextKey = "Loja.Repositorios.SqlServer.EFCodeFirst.LojaDbContext";
         }
 
-        protected override void Seed(Loja.Repositorios.SqlServer.EFCodeFirst.LojaDbContext context)
+        protected override void Seed(LojaDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            context.Categorias.AddOrUpdate(c => c.Nome, new Categoria { Nome = "Papelaria" });
+            context.Categorias.AddOrUpdate(c => c.Nome, new Categoria { Nome = "Informática" });
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data.
+            context.SaveChanges();
+
+            context.Produtos.AddOrUpdate(c => c.Nome, new Produto
+            {
+                Nome = "Grampeador",
+                Preco = 16.06m,
+                Estoque = 6,
+                Categoria = context.Categorias.Single(c => c.Nome == "Papelaria")
+            });
+
+            context.Produtos.AddOrUpdate(c => c.Nome, new Produto
+            {
+                Nome = "Pen drive",
+                Preco = 16.29m,
+                Estoque = 29,
+                Categoria = context.Categorias.Single(c => c.Nome == "Informática")
+            });
+
+            context.SaveChanges();
         }
     }
 }
