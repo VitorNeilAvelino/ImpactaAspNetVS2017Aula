@@ -47,8 +47,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201804081924332_InitialCreate.cs" />
+    <Compile Include="Migrations\201804081924332_InitialCreate.Designer.cs">
+      <DependentUpon>201804081924332_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804081947281_AlterProdutoDescontinuadoToAtivo.cs" />
+    <Compile Include="Migrations\201804081947281_AlterProdutoDescontinuadoToAtivo.Designer.cs">
+      <DependentUpon>201804081947281_AlterProdutoDescontinuadoToAtivo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="ModelConfiguration\ClienteConfiguration.cs" />
     <Compile Include="LojaDbContext.cs" />
+    <Compile Include="LojaInitializer.cs" />
     <Compile Include="ModelConfiguration\CategoriaConfiguration.cs" />
+    <Compile Include="ModelConfiguration\PedidoConfiguration.cs" />
     <Compile Include="ModelConfiguration\ProdutoConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -61,6 +73,14 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201804081924332_InitialCreate.resx">
+      <DependentUpon>201804081924332_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804081947281_AlterProdutoDescontinuadoToAtivo.resx">
+      <DependentUpon>201804081947281_AlterProdutoDescontinuadoToAtivo.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

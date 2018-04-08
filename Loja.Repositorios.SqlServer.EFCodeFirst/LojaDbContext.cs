@@ -1,12 +1,8 @@
 ﻿using Loja.Dominio;
+using Loja.Repositorios.SqlServer.EFCodeFirst.Migrations;
 using Loja.Repositorios.SqlServer.EFCodeFirst.ModelConfiguration;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Loja.Repositorios.SqlServer.EFCodeFirst
 {
@@ -14,11 +10,14 @@ namespace Loja.Repositorios.SqlServer.EFCodeFirst
     {
         public LojaDbContext() : base("name=lojaConnectionString")
         {
-
+            //Database.SetInitializer(new LojaInitializer());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<LojaDbContext, Configuration>());
         }
 
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<Pedido> Pedidos { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -28,6 +27,8 @@ namespace Loja.Repositorios.SqlServer.EFCodeFirst
 
             modelBuilder.Configurations.Add(new ProdutoConfiguration());
             modelBuilder.Configurations.Add(new CategoriaConfiguration());
+            modelBuilder.Configurations.Add(new PedidoConfiguration());
+            modelBuilder.Configurations.Add(new ClienteConfiguration());
         }
     }
 }

@@ -1,10 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Loja.Repositorios.SqlServer.EFCodeFirst;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Loja.Dominio;
 using System.Diagnostics;
 using System.Data.Entity;
@@ -30,7 +25,7 @@ namespace Loja.Repositorios.SqlServer.EFCodeFirst.Tests
         public void LojaDbContextTest()
         {
             var categoria = new Categoria();
-            categoria.Nome = "Papelaria";
+            categoria.Nome = "Eletrônicos";
 
             _db.Categorias.Add(categoria);
 
