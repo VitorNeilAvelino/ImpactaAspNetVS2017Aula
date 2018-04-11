@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -37,8 +36,8 @@ namespace Loja.Mvc.Controllers
             var viewModel = new ProdutoViewModel();
 
             viewModel.Ativo = produto.Ativo;
-            viewModel.CategoriaId = produto.Categoria.Id;
-            viewModel.CategoriaNome = produto.Categoria.Nome;
+            viewModel.CategoriaId = produto.Categoria?.Id;
+            viewModel.CategoriaNome = produto.Categoria?.Nome;
             viewModel.Categorias = Mapear(db.Categorias.ToList());
             viewModel.Id = produto.Id;
             viewModel.Nome = produto.Nome;
@@ -60,18 +59,21 @@ namespace Loja.Mvc.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Produto produto = db.Produtos.Find(id);
+
+            var produto = db.Produtos.Find(id);
+
             if (produto == null)
             {
                 return HttpNotFound();
             }
-            return View(produto);
+
+            return View(Mapear(produto));
         }
 
         // GET: Produtos/Create
         public ActionResult Create()
         {
-            return View();
+            return View(Mapear(new Produto()));
         }
 
         // POST: Produtos/Create
@@ -79,16 +81,33 @@ namespace Loja.Mvc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nome,Preco,QuantidadeEstoque,Ativo")] Produto produto)
+        public ActionResult Create(ProdutoViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
+                var produto = Mapear(viewModel);
+
                 db.Produtos.Add(produto);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
-            return View(produto);
+            return View(viewModel);
+        }
+
+        private Produto Mapear(ProdutoViewModel viewModel)
+        {
+            var produto = new Produto();
+
+            produto.Ativo = viewModel.Ativo;
+            produto.Categoria = db.Categorias.Find(viewModel.CategoriaId);
+            produto.Id = viewModel.Id;
+            produto.Nome = viewModel.Nome;
+            produto.Preco = viewModel.Preco;
+            produto.QuantidadeEstoque = viewModel.QuantidadeEstoque;            
+
+            return produto;
         }
 
         // GET: Produtos/Edit/5
@@ -98,12 +117,15 @@ namespace Loja.Mvc.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Produto produto = db.Produtos.Find(id);
+
+            var produto = db.Produtos.Find(id);
+
             if (produto == null)
             {
                 return HttpNotFound();
             }
-            return View(produto);
+
+            return View(Mapear(produto));
         }
 
         // POST: Produtos/Edit/5
@@ -111,15 +133,28 @@ namespace Loja.Mvc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nome,Preco,QuantidadeEstoque,Ativo")] Produto produto)
+        public ActionResult Edit(ProdutoViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
+                var produto = db.Produtos.Find(viewModel.Id);
+
+                Mapear(viewModel, produto);
+
                 db.Entry(produto).State = EntityState.Modified;
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
-            return View(produto);
+
+            return View(viewModel);
+        }
+
+        private void Mapear(ProdutoViewModel viewModel, Produto produto)
+        {
+            db.Entry(produto).CurrentValues.SetValues(viewModel);
+
+            produto.Categoria = db.Categorias.Find(viewModel.CategoriaId);
         }
 
         // GET: Produtos/Delete/5
@@ -129,12 +164,15 @@ namespace Loja.Mvc.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Produto produto = db.Produtos.Find(id);
+
+            var produto = db.Produtos.Find(id);
+
             if (produto == null)
             {
                 return HttpNotFound();
             }
-            return View(produto);
+
+            return View(Mapear(produto));
         }
 
         // POST: Produtos/Delete/5

@@ -11,8 +11,9 @@ namespace Loja.Mvc.Models
         [Required]
         public string Nome { get; set; }
 
-        [Required]        
-        public int CategoriaId { get; set; }
+        [Required]
+        [Display(Name = "Categoria")]
+        public int? CategoriaId { get; set; }
 
         [Display(Name = "Categoria")]
         public string CategoriaNome { get; set; }
@@ -27,6 +28,6 @@ namespace Loja.Mvc.Models
         [Display(Name = "Estoque")]
         public int QuantidadeEstoque { get; set; }
 
-        public bool Ativo { get; set; }
+        public bool Ativo { get; set; } = true;
     }
 }
