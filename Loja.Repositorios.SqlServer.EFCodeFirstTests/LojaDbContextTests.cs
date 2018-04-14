@@ -27,14 +27,9 @@ namespace Loja.Repositorios.SqlServer.EFCodeFirst.Tests
         }
 
         [TestMethod()]
-        public void LojaDbContextTest()
+        public void SelecionarTodasCategoriasTeste()
         {
-            var categoria = new Categoria();
-            categoria.Nome = "Papelaria";
-
-            _db.Categorias.Add(categoria);
-
-            _db.SaveChanges();
+            var categorias = _db.Categorias.ToList();
         }
 
         [TestMethod]

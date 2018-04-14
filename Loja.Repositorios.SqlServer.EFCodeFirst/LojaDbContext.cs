@@ -1,4 +1,5 @@
 ﻿using Loja.Dominio;
+using Loja.Repositorios.SqlServer.EFCodeFirst.Migrations;
 using Loja.Repositorios.SqlServer.EFCodeFirst.ModelConfiguration;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,9 @@ namespace Loja.Repositorios.SqlServer.EFCodeFirst
     {
         public LojaDbContext() : base("name=lojaConnectionString")
         {
+            //Database.SetInitializer(new LojaDbInitializer());
 
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<LojaDbContext, Configuration>());
         }
 
         public DbSet<Produto> Produtos { get; set; }
