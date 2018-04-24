@@ -195,6 +195,17 @@ namespace Loja.Mvc.Controllers
             return RedirectToAction("Index");
         }
 
+        [Route("Produtos/Categoria")]
+        public JsonResult ObterProdutoPorCategoria(int? categoriaId)
+        {
+            if (categoriaId == null)
+            {
+                return  Json(new HttpStatusCodeResult(HttpStatusCode.BadRequest), JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(db.Produtos.Where(p => p.Categoria.Id == categoriaId).ToList(), JsonRequestBehavior.AllowGet);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
