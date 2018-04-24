@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Loja.Dominio;
 using Loja.Mvc.Models;
@@ -78,7 +76,10 @@ namespace Loja.Mvc.Controllers
         // GET: Produtos/Create
         public ActionResult Create()
         {
-            return View(Mapear(new Produto()));
+            //return View(Mapear(new Produto()));
+            ViewBag.Title = "Novo Produto";
+
+           return View("~/Views/Produtos/_ProdutoForm.cshtml", Mapear(new Produto()));
         }
 
         // POST: Produtos/Create
@@ -87,7 +88,12 @@ namespace Loja.Mvc.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ProdutoViewModel viewModel)
+        //public ActionResult Create(string nome, decimal preco, bool ativo...)
+        //public ActionResult Create(FormCollection formulario)
         {
+            //var nome = formulario["nome"];
+            //var preco = formulario["preco"];
+
             if (ModelState.IsValid)
             {
                 var produto = Mapear(viewModel);
@@ -129,7 +135,10 @@ namespace Loja.Mvc.Controllers
                 return HttpNotFound();
             }
 
-            return View(Mapear(produto));
+            //return View(Mapear(produto));
+            ViewBag.Title = "Editar Produto";
+
+            return View("~/Views/Produtos/_ProdutoForm.cshtml", Mapear(produto));
         }
 
         // POST: Produtos/Edit/5
