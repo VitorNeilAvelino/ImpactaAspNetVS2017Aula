@@ -25,7 +25,7 @@
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.CategoriaId, Model.Categorias,
                                                                "Selecione", new { @class = "form-control d-inline" })
-                <button type="button" id="categoriasPopover" data-toggle="popover" class="btn btn-default hidden-xs">
+                <button type="button" id="pesquisarButton" data-toggle="popover" class="btn btn-default hidden-xs">
                     <span class="glyphicon glyphicon-search"></span>
                 </button>
                 @Html.ValidationMessageFor(model => model.CategoriaId, "", new { @class = "text-danger" })

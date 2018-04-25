@@ -1,25 +1,27 @@
 ﻿$(document).ready(inicializar);
 
+const pesquisarButton = $("#pesquisarButton");
+
 function inicializar() {
-    $("#categoriasPopover").click(obterProdutoPorCategoria);
+    pesquisarButton.click(obterProdutoPorCategoria);
     $(document).on("click", "#closePopover", fecharPopover)
 }
 
 function obterProdutoPorCategoria() {
+    alternarIconePesquisar();
+
     $.ajax({
         url: "/Produtos/Categoria",
         method: "get", // method ou type - get é o default
         data: { categoriaId: $("#CategoriaId").val() }
     })
-        .done(function (response) { exibirProdutos(response) }) // success
+        .done(function (response) { exibirPopover(response) }) // success
         .fail(function (response) { }) // error
         .always(function (response) { }); // complete
 }
 
-function exibirProdutos(response) {
-    //$("#tarefasPopover").popover("destroy");
-
-    $("#categoriasPopover")
+function exibirPopover(response) {
+    pesquisarButton
         .popover("destroy")
         .popover({
             content: obterGridProdutos(response),
@@ -28,6 +30,8 @@ function exibirProdutos(response) {
             title: "Produtos desta categoria <span id='closePopover' class='close'>&times;</span>"
         })
         .popover("show");
+
+    alternarIconePesquisar();
 }
 
 function obterGridProdutos(produtos) {
@@ -49,5 +53,9 @@ function obterGridProdutos(produtos) {
 }
 
 function fecharPopover() {
-    $("#categoriasPopover").popover("destroy");
+    pesquisarButton.popover("destroy");
+}
+
+function alternarIconePesquisar() {
+    pesquisarButton.find('span').toggleClass('glyphicon-search glyphicon-refresh glyphicon-spin');
 }
