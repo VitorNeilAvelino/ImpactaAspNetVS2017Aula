@@ -1,19 +1,28 @@
 ﻿$(document).ready(inicializar);
 
 const pesquisarButton = $("#pesquisarButton");
+//const pesquisarButton = document.getElementById("pesquisarButton");
 
 function inicializar() {
     pesquisarButton.click(obterProdutoPorCategoria);
+    //pesquisarButton.addEventListener("click", obterProdutoPorCategoria)
     $(document).on("click", "#closePopover", fecharPopover)
 }
 
 function obterProdutoPorCategoria() {
+    const categoriaId = $("#CategoriaId").val();
+
+    if (!categoriaId) {
+        fecharPopover();
+        return;
+    }
+
     alternarIconePesquisar();
 
     $.ajax({
         url: "/Produtos/Categoria",
         method: "get", // method ou type - get é o default
-        data: { categoriaId: $("#CategoriaId").val() }
+        data: { categoriaId }
     })
         .done(function (response) { exibirPopover(response) }) // success
         .fail(function (response) { }) // error
@@ -21,10 +30,11 @@ function obterProdutoPorCategoria() {
 }
 
 function exibirPopover(response) {
+    //$(pesquisarButton)
     pesquisarButton
         .popover("destroy")
         .popover({
-            content: obterGridProdutos(response),
+            content: montarGridProdutos(response),
             html: true,
             animation: true,
             title: "Produtos desta categoria <span id='closePopover' class='close'>&times;</span>"
@@ -34,7 +44,7 @@ function exibirPopover(response) {
     alternarIconePesquisar();
 }
 
-function obterGridProdutos(produtos) {
+function montarGridProdutos(produtos) {
     var html = "<table class='table table-striped'>";
 
     html += "<tr><th>Produto</th><th>Preço</th><th>Estoque</th></tr>";
@@ -53,9 +63,11 @@ function obterGridProdutos(produtos) {
 }
 
 function fecharPopover() {
+    //$(pesquisarButton).popover("destroy");
     pesquisarButton.popover("destroy");
 }
 
 function alternarIconePesquisar() {
+    //$(pesquisarButton).find('span').toggleClass('glyphicon-search glyphicon-refresh glyphicon-spin');
     pesquisarButton.find('span').toggleClass('glyphicon-search glyphicon-refresh glyphicon-spin');
 }
