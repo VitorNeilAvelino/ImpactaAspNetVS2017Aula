@@ -1,11 +1,14 @@
 ﻿$(document).ready(inicializar);
 
-const pesquisarButton = $("#pesquisarButton");
-//const pesquisarButton = document.getElementById("pesquisarButton");
+var pesquisarButton = {};
 
 function inicializar() {
+    pesquisarButton = $("#pesquisarButton");
+    //pesquisarButton = document.getElementById("pesquisarButton");
+
     pesquisarButton.click(obterProdutoPorCategoria);
     //pesquisarButton.addEventListener("click", obterProdutoPorCategoria)
+
     $(document).on("click", "#closePopover", fecharPopover)
 }
 
