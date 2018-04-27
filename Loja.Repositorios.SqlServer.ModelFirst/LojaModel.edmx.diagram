@@ -6,11 +6,11 @@
     <edmx:Diagrams>
       <Diagram DiagramId="db0d593c1db24e9db35b055a29b3c0c2" Name="Produto" >
         <EntityTypeShape EntityType="LojaModel.Produtos" Width="1.5" PointX="5.25" PointY="0.875" />
-        <EntityTypeShape EntityType="LojaModel.Categorias" Width="1.5" PointX="3" PointY="0.875" />
+        <EntityTypeShape EntityType="LojaModel.Categorias" Width="1.5" PointX="3" PointY="1" />
         <AssociationConnector Association="LojaModel.CategoriaProduto" />
-        <EntityTypeShape EntityType="LojaModel.ProdutoImagem" Width="1.875" PointX="7.5" PointY="1" />
+        <EntityTypeShape EntityType="LojaModel.ProdutoImagem" Width="1.875" PointX="7.5" PointY="1.125" />
         <AssociationConnector Association="LojaModel.ProdutoProdutoImagem" />
-        <EntityTypeShape EntityType="LojaModel.Fornecedores" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="LojaModel.Fornecedores" Width="1.5" PointX="0.75" PointY="1.125" />
         <AssociationConnector Association="LojaModel.FornecedoresCategorias" />
       </Diagram>
     </edmx:Diagrams>
