@@ -22,7 +22,7 @@ namespace Loja.Mvc.Models
 
         [Required]
         //[RegularExpression("^[a-zA-Z0-9-._]{1,50}$")]
-        //[RegularExpression(@"^[a-zA-Z0-9-._]+@[\w-]+(\.[a-zA-Z]{2,3}){1,2}$", ErrorMessage = "Email com formato inválido.")]
+        //[RegularExpression(@"^[^\W_][a-zA-Z0-9-._]+@[\w-]+(\.[a-zA-Z]{2,3}){1,2}$", ErrorMessage = "Email com formato inválido.")]
         [EmailAddress]
         [Remote("VerificarDisponibilidadeEmail", "Clientes", HttpMethod = "POST", ErrorMessage = "Email já utilizado." )]
         public string Email { get; set; }
