@@ -5,11 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="db0d593c1db24e9db35b055a29b3c0c2" Name="Diagram1" >
-        <EntityTypeShape EntityType="LojaModel.Produto" Width="1.5" PointX="0.875" PointY="0.75" />
-        <EntityTypeShape EntityType="LojaModel.Categoria" Width="1.5" PointX="3.5" PointY="3.25" />
+        <EntityTypeShape EntityType="LojaModel.Produtos" Width="1.5" PointX="0.875" PointY="0.75" />
+        <EntityTypeShape EntityType="LojaModel.Categorias" Width="1.5" PointX="4.875" PointY="2.375" />
         <AssociationConnector Association="LojaModel.CategoriaProduto" />
-        <EntityTypeShape EntityType="LojaModel.ProdutoImagem" Width="1.5" PointX="3.625" PointY="0.625" />
+        <EntityTypeShape EntityType="LojaModel.ProdutoImagem" Width="1.875" PointX="3.625" PointY="0.625" />
         <AssociationConnector Association="LojaModel.ProdutoProdutoImagem" />
+        <EntityTypeShape EntityType="LojaModel.Fornecedores" Width="1.5" PointX="4.125" PointY="4.25" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
