@@ -49,10 +49,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Categorias.cs">
+      <DependentUpon>LojaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Fornecedores.cs">
+      <DependentUpon>LojaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LojaModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LojaModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LojaModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LojaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="LojaModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>LojaModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ProdutoImagem.cs">
+      <DependentUpon>LojaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Produtos.cs">
+      <DependentUpon>LojaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -69,6 +91,19 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LojaModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LojaModel.Context.cs</LastGenOutput>
+      <DependentUpon>LojaModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="LojaModel.edmx.sql" />
+    <Content Include="LojaModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LojaModel.cs</LastGenOutput>
+      <DependentUpon>LojaModel.edmx</DependentUpon>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
