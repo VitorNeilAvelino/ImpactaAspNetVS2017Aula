@@ -12,8 +12,18 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="LojaModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
-        <EntityContainer Name="LojaModelContainer" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Produtos" EntityType="LojaModel.Produto" />
+        <EntityContainer Name="LojaModelContainer1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Produto" EntityType="LojaModel.Produto" />
+          <EntitySet Name="Categoria" EntityType="LojaModel.Categoria" />
+          <AssociationSet Name="CategoriaProduto" Association="LojaModel.CategoriaProduto">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Produto" EntitySet="Produto" />
+          </AssociationSet>
+          <EntitySet Name="ProdutoImagemSet" EntityType="LojaModel.ProdutoImagem" />
+          <AssociationSet Name="ProdutoProdutoImagem" Association="LojaModel.ProdutoProdutoImagem">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="ProdutoImagem" EntitySet="ProdutoImagemSet" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Produto">
           <Key>
@@ -21,7 +31,40 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nome" Type="String" Nullable="false" MaxLength="200" Unicode="true" />
+          <NavigationProperty Name="Categoria" Relationship="LojaModel.CategoriaProduto" FromRole="Produto" ToRole="Categoria" />
+          <NavigationProperty Name="Imagem" Relationship="LojaModel.ProdutoProdutoImagem" FromRole="Produto" ToRole="ProdutoImagem" />
         </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="200" Unicode="true" />
+          <NavigationProperty Name="Produtos" Relationship="LojaModel.CategoriaProduto" FromRole="Categoria" ToRole="Produto" />
+        </EntityType>
+        <Association Name="CategoriaProduto">
+          <End Type="LojaModel.Categoria" Role="Categoria" Multiplicity="1" />
+          <End Type="LojaModel.Produto" Role="Produto" Multiplicity="*" />
+        </Association>
+        <EntityType Name="ProdutoImagem">
+          <Key>
+            <PropertyRef Name="Produto_Id" />
+          </Key>
+          <Property Name="Produto_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="Produto" Relationship="LojaModel.ProdutoProdutoImagem" FromRole="ProdutoImagem" ToRole="Produto" />
+        </EntityType>
+        <Association Name="ProdutoProdutoImagem">
+          <End Type="LojaModel.Produto" Role="Produto" Multiplicity="1" />
+          <End Type="LojaModel.ProdutoImagem" Role="ProdutoImagem" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProdutoImagem">
+              <PropertyRef Name="Produto_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -29,7 +72,7 @@
       <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
         <Alias Key="Model" Value="LojaModel" />
         <Alias Key="Target" Value="LojaModel.Store" />
-        <EntityContainerMapping CdmEntityContainer="LojaModelContainer" StorageEntityContainer="LojaModelTargetContainer">
+        <EntityContainerMapping CdmEntityContainer="LojaModelContainer1" StorageEntityContainer="LojaModelTargetContainer">
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
