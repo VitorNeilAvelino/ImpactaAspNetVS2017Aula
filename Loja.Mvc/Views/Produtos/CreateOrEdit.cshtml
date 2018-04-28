@@ -1,0 +1,13 @@
+﻿@model Loja.Mvc.Models.ProdutoViewModel
+
+<h2>@ViewBag.Titulo</h2>
+
+@Html.Partial("~/Views/Produtos/_ProdutoForm.cshtml", Model)
+
+<div>
+    @Html.ActionLink("Voltar", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

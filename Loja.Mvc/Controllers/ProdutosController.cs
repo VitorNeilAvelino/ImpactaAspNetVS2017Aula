@@ -78,7 +78,9 @@ namespace Loja.Mvc.Controllers
         // GET: Produtos/Create
         public ActionResult Create()
         {
-            return View(Mapear(new Produto()));
+            ViewBag.Titulo = "Novo Produto";
+
+            return View("~/Views/Produtos/CreateOrEdit.cshtml", Mapear(new Produto()));
         }
 
         // POST: Produtos/Create
@@ -87,7 +89,11 @@ namespace Loja.Mvc.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ProdutoViewModel viewModel)
+        //public ActionResult Create(int id, string nome, decimal preco)
+        //public ActionResult Create(FormCollection formulario)
         {
+           //var nome = formulario["nome"];
+
             if (ModelState.IsValid)
             {
                 var produto = Mapear(viewModel);
@@ -97,7 +103,7 @@ namespace Loja.Mvc.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(viewModel);
+            return View("~/Views/Produtos/CreateOrEdit.cshtml", viewModel);
         }
 
         private Produto Mapear(ProdutoViewModel viewModel)
