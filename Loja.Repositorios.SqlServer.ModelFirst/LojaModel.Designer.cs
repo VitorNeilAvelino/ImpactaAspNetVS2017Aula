@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Vitor Avelino\Source\Repos\ImpactaAspNetVS2017Aula\Loja.Repositorios.SqlServer.ModelFirst\LojaModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\vitor_000\Source\Repos\ImpactaAspNetVS2017Aula\Loja.Repositorios.SqlServer.ModelFirst\LojaModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
