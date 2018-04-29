@@ -16,8 +16,9 @@ namespace Loja.Mvc.Models
         public string Nome { get; set; }
 
         [Required]
-        [DisplayName("Nascimento")]
         [IdadeMinima(18)]
+        //[DataType(DataType.Date)] // HTML 5: date picker
+        [DisplayName("Nascimento")]
         public DateTime DataNascimento { get; set; }
 
         [Required]

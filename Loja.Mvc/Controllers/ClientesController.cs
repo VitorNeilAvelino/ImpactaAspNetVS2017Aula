@@ -19,19 +19,12 @@ namespace Loja.Mvc.Controllers
         [HttpPost]
         public ActionResult Create(ClienteViewModel viewModel)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    return View();
-                }
+                return View(viewModel);
+            }
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
 
         public ActionResult VerificarDisponibilidadeEmail(string email)
