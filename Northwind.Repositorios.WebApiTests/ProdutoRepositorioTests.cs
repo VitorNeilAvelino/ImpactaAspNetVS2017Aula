@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Configuration;
 
 namespace Northwind.Repositorios.WebApi.Tests
@@ -25,7 +26,7 @@ namespace Northwind.Repositorios.WebApi.Tests
 
             var produtoResponse = _repositorio.Post(produto).Result;
 
-            System.Console.WriteLine(produtoResponse.ProductID);
+            Console.WriteLine(produtoResponse.ProductID);
         }
 
         [TestMethod]
