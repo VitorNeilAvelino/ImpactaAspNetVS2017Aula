@@ -8,6 +8,7 @@ using Northwind.Repositorios.SqlServer.EFDbFirst;
 
 namespace Northwind.WebApi.Controllers
 {
+    //localhost:51001/swagger/
     [RoutePrefix("api/products")]
     public class ProductsController : ApiController
     {
@@ -103,9 +104,14 @@ namespace Northwind.WebApi.Controllers
             return Ok(products);
         }
 
+        /// <summary>
+        /// Obtém a lista dos pedidos que contêm aquele produto.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [ResponseType(typeof(Products))]
         //[HttpGet]
-        [Route("{id}/orders")]
+        [Route("{id}/orders")]        
         public IHttpActionResult GetProductOrders(int id)
         {
             var products = db.Products.Include(p => p.Order_Details).SingleOrDefault(p=> p.ProductID == id);
