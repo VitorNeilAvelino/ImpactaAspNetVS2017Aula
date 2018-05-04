@@ -3,6 +3,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using Northwind.Repositorios.SqlServer.EFDbFirst;
 
@@ -10,6 +11,7 @@ namespace Northwind.WebApi.Controllers
 {
     //localhost:51001/swagger/
     [RoutePrefix("api/products")]
+    //[EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProductsController : ApiController
     {
         private NorthwindEntities db = new NorthwindEntities();

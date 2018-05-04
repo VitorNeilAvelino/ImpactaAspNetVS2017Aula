@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Produtos</title>
+    <meta charset="utf-8" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet">
+    <link href="Content/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container body-content">
+        <form id="produtoForm">
+            <input type="hidden" id="id" name="id" value="0" />
+            <div class="form-horizontal">
+                <h4>Produto</h4>
+                <hr />
+                <div class="form-group">
+                    <div class="control-label col-md-2">
+                        <label for="nome" class="control-label">Nome</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input type="text" id="productName" name="productName" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="control-label col-md-2">
+                        <label for="preco" class="control-label">Preço</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input type="text" id="unitPrice" name="unitPrice" class="form-control" />
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Salvar" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        </form>
+        <table class="table" id="produtosTable">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</body>
+</html>
+<script src="Scripts/jquery-3.0.0.min.js"></script>
+<script src="Scripts/bootstrap.min.js"></script>
+<script type="text/javascript">
+    var urlApiProdutos = "http://localhost:51001/api/products";
+
+    $(document).ready(function () {
+        vincularSubmeter();
+        carregarProdutos();
+        $("#productName").focus();
+    });
+
+    function vincularSubmeter() {
+        $("#produtoForm").on("submit", function (event) {
+            var form = $(this);
+
+            $.ajax({
+                type: "POST",
+                url: urlApiProdutos,
+                data: {} // trocar por um objeto que represente o produto a ser inserido.
+            })
+                .done(function (data) {
+                    console.log(data);
+
+                    alert("Produto gravado com sucesso!");
+                    form[0].reset();
+                    carregarProdutos();
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown);
+
+                    alert("Erro ao gravar o produto.");
+                });
+
+            event.preventDefault();
+        });
+    }
+
+    function carregarProdutos() {
+        $.ajax({
+            type: "GET",
+            url: urlApiProdutos
+        })
+            .done(function (produtos) {
+                $("#produtosTable > tbody").html("");
+                $("#produtosTable > tbody").append(obterProdutosTr(produtos));
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+                alert("Erro ao carregar os produtos.");
+            });
+    }
+
+    function obterProdutosTr(produtos) {
+        var trs = "";
+
+        $(produtos).each(function (indice, produto) {
+            trs += "<tr>";
+            trs += "<td>" + produto.productName + "</td><td>" + produto.unitPrice + "</td>";
+            trs += obterBotoesAcao(produto.productID);
+            trs += "</tr>";
+        })
+
+        return trs;
+    }
+
+    function obterBotoesAcao(productID) {
+        return "<td>" +
+            "<a class='fa fa-edit' href='/" + urlApiProdutos + "/" + productID + "' title='Editar'></a> | " +
+            "<a class='fa fa-remove' href='/" + urlApiProdutos + "/" + productID + "' title='Excluir'></a>" +
+            "</td>"
+    }
+</script>

@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Serialization;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Northwind.WebApi
 {
@@ -10,7 +11,9 @@ namespace Northwind.WebApi
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            
+            //Microsoft.AspNet.WebApi.Cors
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
+
             //Baixar a extensão JSON Viewer pro Chrome.
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
