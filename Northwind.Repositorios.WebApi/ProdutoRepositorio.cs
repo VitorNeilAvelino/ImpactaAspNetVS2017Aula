@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Loja.Repositorios.WebApi
+namespace Northwind.Repositorios.WebApi
 {
     public class ProdutoRepositorio : RepositorioBase<ProductViewModel>
     {

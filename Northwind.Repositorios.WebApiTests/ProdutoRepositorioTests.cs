@@ -1,67 +1,64 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Configuration;
-using System.Linq;
 
-namespace Loja.Repositorios.WebApi.Tests
+namespace Northwind.Repositorios.WebApi.Tests
 {
     [TestClass()]
     public class ProdutoRepositorioTests
     {
-        ProdutoRepositorio _repositorio = new ProdutoRepositorio(ConfigurationManager.AppSettings["urlApiNorthwind"] + "Produtos");
+        ProdutoRepositorio _repositorio = new ProdutoRepositorio(ConfigurationManager.AppSettings["urlApiNorthwind"] + "Products");
 
         [TestMethod()]
         public void GetTest()
         {
             var produtos = _repositorio.Get().Result;
 
-            Assert.IsTrue(produtos.Count != 0);
-        }
-
-        [TestMethod()]
-        public void GetByNameTest()
-        {
-            //https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application
-            var produtos = _repositorio.GetByName("caneta").Result;
-
-            Assert.IsTrue(produtos.Count != 0);
+            Assert.IsTrue(produtos.Count > 1);
         }
 
         [TestMethod()]
         public void PostTest()
         {
             var produto = new ProductViewModel();
-            produto.ProductName= "Corretivo líquido";
-            produto.UnitPrice = 16.57m;
+            produto.ProductName= "Geleia de pimenta";
+            produto.UnitPrice = 13.21m;
 
-            _repositorio.Post(produto).Wait();
+            var produtoResponse = _repositorio.Post(produto).Result;
 
-            var produtos = _repositorio.Get("name=corretivo").Result;
-
-            Assert.IsTrue(produtos.Count != 0);
+            System.Console.WriteLine(produtoResponse.ProductID);
         }
 
         [TestMethod]
         public void PutTeste()
         {
-            var produto = _repositorio.Get(47).Result;
+            var produto = _repositorio.Get(79).Result;
 
-            produto.Preco = 17.05m;
+            produto.UnitPrice = 17.05m;
+            produto.UnitsInStock = 23;
 
-            _repositorio.Put(produto.Id, produto).Wait();
+            _repositorio.Put(produto.ProductID, produto).Wait();
 
-            produto = _repositorio.Get(47).Result;
+            produto = _repositorio.Get(79).Result;
 
-            Assert.AreEqual(produto.Preco, 17.05m);
+            Assert.AreEqual(produto.UnitPrice, 17.05m);
         }
 
         [TestMethod]
         public void DeleteTeste()
         {
-            _repositorio.Delete(47).Wait();
+            _repositorio.Delete(79).Wait();
 
-            var produto = _repositorio.Get(47).Result;
+            var produto = _repositorio.Get(79).Result;
 
             Assert.IsNull(produto);
+        }
+
+        [TestMethod]
+        public void GetProductOrdersTeste()
+        {
+            var pedidos = _repositorio.GetProductOrders(27).Result;
+
+            Assert.IsTrue(pedidos.Count > 1);
         }
     }
 }
