@@ -22,6 +22,11 @@ namespace Loja.Mvc.Controllers
             return View(Mapear(db.Produtos.ToList()));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="produtos"></param>
+        /// <returns></returns>
         private List<ProdutoViewModel> Mapear(List<Produto> produtos)
         {
             var viewModel = new List<ProdutoViewModel>();
@@ -53,7 +58,7 @@ namespace Loja.Mvc.Controllers
 
         private List<SelectListItem> Mapear(List<Categoria> categorias)
         {
-            return categorias.Select(c => 
+            return categorias.Select(c =>
                 new SelectListItem { Text = c.Nome, Value = c.Id.ToString() }).ToList();
         }
 
@@ -92,7 +97,7 @@ namespace Loja.Mvc.Controllers
         //public ActionResult Create(int id, string nome, decimal preco)
         //public ActionResult Create(FormCollection formulario)
         {
-           //var nome = formulario["nome"];
+            //var nome = formulario["nome"];
 
             if (ModelState.IsValid)
             {
@@ -190,6 +195,14 @@ namespace Loja.Mvc.Controllers
             db.Produtos.Remove(produto);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [ActionName("Categoria")]
+        public JsonResult ObterProdutoPorCategoria(int? categoriaId)
+        {
+            return Json(db.Produtos
+                .Where(p => p.Categoria.Id == categoriaId)
+                .ToList(), JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
