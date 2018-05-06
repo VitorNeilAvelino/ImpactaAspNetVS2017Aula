@@ -1,0 +1,207 @@
+﻿<h2>CRUD Operationson HTML Table  using HTML Templates</h2>
+
+<style type="text/css">
+    table {
+        width: 700px;
+        border: double;
+    }
+
+    th {
+        width: 100px;
+    }
+
+    td {
+        border: double;
+        width: 100px;
+    }
+
+    input {
+        width: 100px;
+    }
+</style>
+
+<script src="/Scripts/jquery-3.3.1.js"></script>
+<script src="/Scripts/knockout-3.4.2.js"></script>
+
+<input type="button" value="Add New Record" data-bind="click: function () { ProductViewModel.addnewRecord(); }" />
+<table>
+    <thead>
+        <tr>
+            <th>
+                Nome
+            </th>
+            <th>
+                Preço
+            </th>
+            <th>
+                Estoque
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody data-bind="template: { name: currentTemplate, foreach: Products }"></tbody>
+</table>
+
+<script type="text/template" id="readonlyTemplate">
+    <tr>
+        <td>
+            <span data-bind="text: productName"></span>
+        </td>
+        <td>
+            <span data-bind="text: unitPrice"></span>
+        </td>
+        <td>
+            <span data-bind="text: unitsInStock"></span>
+        </td>
+        <td>
+            <input type="button" value="Edit" data-bind="click: function () { ProductViewModel.editTemplate($data);}" />
+        </td>
+        <td>
+            <input type="button" value="delete" data-bind="click: function () { ProductViewModel.deleteEmployee($data); }" />
+        </td>
+    </tr>
+</script>
+
+<script type="text/template" id="editTemplate">
+    <tr>
+        <td>
+            <input type="text" data-bind="value: $data.productName" />
+        </td>
+        <td>
+            <input type="text" data-bind="value: $data.unitPrice" />
+        </td>
+        <td>
+            <input type="text" data-bind="value: $data.unitsInStock" />
+        </td>
+        <td>
+            <input type="button" value="Save" data-bind="click: ProductViewModel.save" />
+        </td>
+        <td>
+            <input type="button" value="Cancel" data-bind="click: function () { ProductViewModel.reset(); }" />
+        </td>
+    </tr>
+</script>
+
+<script type="text/javascript">
+    var self = this;
+
+    //S1:Boolean to check wheather the operation is for Edit and New Record
+    var IsNewRecord = false;
+
+    self.Products = ko.observableArray([]);
+
+    loadProducts();
+
+    //S2:Method to Load all Products by making call to WEB API GET method
+    function loadProducts() {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:51001/api/Products/",
+            success: function (data) {
+                self.Products(data);
+            },
+            error: function (err) {
+                alert(err.status + " <--------------->");
+            }
+        });
+    };
+
+    //S3:The Product Object
+    function Product(eno, ename, dname, desig, sal) {
+        return {
+            EmpNo: ko.observable(eno),
+            EmpName: ko.observable(ename),
+            DeptName: ko.observable(dname),
+            Designation: ko.observable(desig),
+            Salary: ko.observable(sal)
+        }
+    };
+
+    //S4:The ViewModel where the Templates are initialized
+    var ProductViewModel = {
+        readonlyTemplate: ko.observable("readonlyTemplate"),
+        editTemplate: ko.observable()
+    };
+
+    //S5:Method ti decide the Current Template (readonlyTemplate or editTemplate)
+    ProductViewModel.currentTemplate = function (tmpl) {
+        return tmpl === this.editTemplate() ? 'editTemplate' : this.readonlyTemplate();
+    }.bind(ProductViewModel);
+
+    //S6:Method to create a new Blabk entry When the Add New Record button is clicked
+    ProductViewModel.addnewRecord = function () {
+        self.Products.splice(0, 0, new Product(0, "", 0, 0.0));
+        IsNewRecord = true; //Set the Check for the New Record
+    };
+
+    //S7:Method to Save the Record (This is used for Edit and Add New Record)
+    ProductViewModel.save = function (d) {
+        const product = {};
+        product.productID = d.productID;
+        product.EmpName = d.EmpName;
+        product.DeptName = d.DeptName;
+        product.Designation = d.Designation;
+        product.Salary = d.Salary;
+        //Edit teh Record
+        if (IsNewRecord === false) {
+            $.ajax({
+                type: "PUT",
+                url: "api/EmployeeInfoAPI/" + Emp.EmpNo,
+                data: Emp,
+                success: function (data) {
+                    alert("Record Updated Successfully " + data.status);
+                    ProductViewModel.reset();
+                },
+                error: function (err) {
+                    alert("Error Occures, Please Reload the Page and Try Again " + err.status);
+                    ProductViewModel.reset();
+                }
+            });
+        }
+        //The New Record
+        if (IsNewRecord === true) {
+            IsNewRecord = false;
+            $.ajax({
+                type: "POST",
+                url: "api/EmployeeInfoAPI",
+                data: Emp,
+                success: function (data) {
+                    alert("Record Added Successfully " + data.status);
+                    ProductViewModel.reset();
+                    loadProducts();
+                },
+                error: function (err) {
+                    alert("Error Occures, Please Reload the Page and Try Again " + err.status);
+                    ProductViewModel.reset();
+                }
+            });
+        }
+    };
+
+    //S8:Method to Delete the Record
+    ProductViewModel.deleteEmployee = function (d) {
+        $.ajax({
+            type: "DELETE",
+            url: "api/EmployeeInfoAPI/" + d.EmpNo,
+            success: function (data) {
+                alert("Record Deleted Successfully " + data.status);
+                ProductViewModel.reset();
+                loadProducts();
+            },
+            error: function (err) {
+                alert("Error Occures, Please Reload the Page and Try Again " + err.status);
+                ProductViewModel.reset();
+            }
+        });
+    };
+
+    //S9:Method to Reset the template
+    ProductViewModel.reset = function (t) {
+        this.editTemplate("readonlyTemplate");
+    };
+
+    ko.applyBindings(ProductViewModel);
+</script>
