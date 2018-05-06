@@ -1,207 +1,76 @@
-﻿<h2>CRUD Operationson HTML Table  using HTML Templates</h2>
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" />
+</head>
+<body>
+    <div id="jsGrid"></div>
+</body>
+</html>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
+<script>
+    const urlApiProdutos = "http://localhost:51001/api/products";
 
-<style type="text/css">
-    table {
-        width: 700px;
-        border: double;
-    }
+    $("#jsGrid").jsGrid({
+        width: "100%",
+        height: "auto",
 
-    th {
-        width: 100px;
-    }
+        inserting: true,
+        editing: true,
+        sorting: true,
+        paging: true,
+        pageSize: 20,
+        autoload: true,
 
-    td {
-        border: double;
-        width: 100px;
-    }
+        onError: function (erro) { return alert(erro.args[2]); },
 
-    input {
-        width: 100px;
-    }
-</style>
+        fields: [
+            { title: "Id", name: "productID", type: "number", width: 0, visible: false },
+            { title: "Produto", name: "productName", type: "text", width: 100, validate: "required" },
+            { title: "Preço", name: "unitPrice", type: "number", width: 50, validate: "required" },
+            { title: "Estoque", name: "unitsInStock", type: "number", width: 50, validate: "required" },
+            { type: "control" }
+        ],
 
-<script src="/Scripts/jquery-3.3.1.js"></script>
-<script src="/Scripts/knockout-3.4.2.js"></script>
+        controller: {
+            loadData: function () { return getProducts(); },
+            insertItem: function (produto) { return postProduct(produto); },
+            updateItem: function (produto) { return putProduct(produto); },
+            deleteItem: function (produto) { return deleteProduct(produto); }
+        }
+    });
 
-<input type="button" value="Add New Record" data-bind="click: function () { ProductViewModel.addnewRecord(); }" />
-<table>
-    <thead>
-        <tr>
-            <th>
-                Nome
-            </th>
-            <th>
-                Preço
-            </th>
-            <th>
-                Estoque
-            </th>
-            <th>
-            </th>
-            <th>
-            </th>
-        </tr>
-    </thead>
-    <tbody data-bind="template: { name: currentTemplate, foreach: Products }"></tbody>
-</table>
-
-<script type="text/template" id="readonlyTemplate">
-    <tr>
-        <td>
-            <span data-bind="text: productName"></span>
-        </td>
-        <td>
-            <span data-bind="text: unitPrice"></span>
-        </td>
-        <td>
-            <span data-bind="text: unitsInStock"></span>
-        </td>
-        <td>
-            <input type="button" value="Edit" data-bind="click: function () { ProductViewModel.editTemplate($data);}" />
-        </td>
-        <td>
-            <input type="button" value="delete" data-bind="click: function () { ProductViewModel.deleteEmployee($data); }" />
-        </td>
-    </tr>
-</script>
-
-<script type="text/template" id="editTemplate">
-    <tr>
-        <td>
-            <input type="text" data-bind="value: $data.productName" />
-        </td>
-        <td>
-            <input type="text" data-bind="value: $data.unitPrice" />
-        </td>
-        <td>
-            <input type="text" data-bind="value: $data.unitsInStock" />
-        </td>
-        <td>
-            <input type="button" value="Save" data-bind="click: ProductViewModel.save" />
-        </td>
-        <td>
-            <input type="button" value="Cancel" data-bind="click: function () { ProductViewModel.reset(); }" />
-        </td>
-    </tr>
-</script>
-
-<script type="text/javascript">
-    var self = this;
-
-    //S1:Boolean to check wheather the operation is for Edit and New Record
-    var IsNewRecord = false;
-
-    self.Products = ko.observableArray([]);
-
-    loadProducts();
-
-    //S2:Method to Load all Products by making call to WEB API GET method
-    function loadProducts() {
-        $.ajax({
+    function getProducts() {
+        return $.ajax({
             type: "GET",
-            url: "http://localhost:51001/api/Products/",
-            success: function (data) {
-                self.Products(data);
-            },
-            error: function (err) {
-                alert(err.status + " <--------------->");
-            }
+            url: urlApiProdutos
         });
-    };
+    }
 
-    //S3:The Product Object
-    function Product(eno, ename, dname, desig, sal) {
-        return {
-            EmpNo: ko.observable(eno),
-            EmpName: ko.observable(ename),
-            DeptName: ko.observable(dname),
-            Designation: ko.observable(desig),
-            Salary: ko.observable(sal)
-        }
-    };
+    function postProduct(produto) {
+        return $.ajax({
+            type: "POST",
+            url: urlApiProdutos,
+            data: produto
+        });
+    }
 
-    //S4:The ViewModel where the Templates are initialized
-    var ProductViewModel = {
-        readonlyTemplate: ko.observable("readonlyTemplate"),
-        editTemplate: ko.observable()
-    };
+    function putProduct(produto) {
+        return $.ajax({
+            type: "PUT",
+            url: urlApiProdutos + "/" + produto.productID,
+            data: produto,
+        });
+    }
 
-    //S5:Method ti decide the Current Template (readonlyTemplate or editTemplate)
-    ProductViewModel.currentTemplate = function (tmpl) {
-        return tmpl === this.editTemplate() ? 'editTemplate' : this.readonlyTemplate();
-    }.bind(ProductViewModel);
-
-    //S6:Method to create a new Blabk entry When the Add New Record button is clicked
-    ProductViewModel.addnewRecord = function () {
-        self.Products.splice(0, 0, new Product(0, "", 0, 0.0));
-        IsNewRecord = true; //Set the Check for the New Record
-    };
-
-    //S7:Method to Save the Record (This is used for Edit and Add New Record)
-    ProductViewModel.save = function (d) {
-        const product = {};
-        product.productID = d.productID;
-        product.EmpName = d.EmpName;
-        product.DeptName = d.DeptName;
-        product.Designation = d.Designation;
-        product.Salary = d.Salary;
-        //Edit teh Record
-        if (IsNewRecord === false) {
-            $.ajax({
-                type: "PUT",
-                url: "api/EmployeeInfoAPI/" + Emp.EmpNo,
-                data: Emp,
-                success: function (data) {
-                    alert("Record Updated Successfully " + data.status);
-                    ProductViewModel.reset();
-                },
-                error: function (err) {
-                    alert("Error Occures, Please Reload the Page and Try Again " + err.status);
-                    ProductViewModel.reset();
-                }
-            });
-        }
-        //The New Record
-        if (IsNewRecord === true) {
-            IsNewRecord = false;
-            $.ajax({
-                type: "POST",
-                url: "api/EmployeeInfoAPI",
-                data: Emp,
-                success: function (data) {
-                    alert("Record Added Successfully " + data.status);
-                    ProductViewModel.reset();
-                    loadProducts();
-                },
-                error: function (err) {
-                    alert("Error Occures, Please Reload the Page and Try Again " + err.status);
-                    ProductViewModel.reset();
-                }
-            });
-        }
-    };
-
-    //S8:Method to Delete the Record
-    ProductViewModel.deleteEmployee = function (d) {
-        $.ajax({
+    function deleteProduct(produto) {
+        return $.ajax({
             type: "DELETE",
-            url: "api/EmployeeInfoAPI/" + d.EmpNo,
-            success: function (data) {
-                alert("Record Deleted Successfully " + data.status);
-                ProductViewModel.reset();
-                loadProducts();
-            },
-            error: function (err) {
-                alert("Error Occures, Please Reload the Page and Try Again " + err.status);
-                ProductViewModel.reset();
-            }
+            url: urlApiProdutos + "/" + produto.productID
         });
-    };
-
-    //S9:Method to Reset the template
-    ProductViewModel.reset = function (t) {
-        this.editTemplate("readonlyTemplate");
-    };
-
-    ko.applyBindings(ProductViewModel);
+    }    
 </script>
