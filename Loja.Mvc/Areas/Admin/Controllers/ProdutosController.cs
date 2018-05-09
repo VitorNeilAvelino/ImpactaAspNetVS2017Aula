@@ -8,13 +8,15 @@ using Loja.Dominio;
 using Loja.Mvc.Models;
 using Loja.Repositorios.SqlServer.EFCodeFirst;
 
-namespace Loja.Mvc.Controllers
+namespace Loja.Mvc.Areas.Admin.Controllers
 {
+    [Authorize]
     public class ProdutosController : Controller
     {
         private LojaDbContext db = new LojaDbContext();
 
         // GET: Produtos
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View(Mapear(db.Produtos.ToList()));
@@ -79,7 +81,7 @@ namespace Loja.Mvc.Controllers
             //return View(Mapear(new Produto()));
             ViewBag.Title = "Novo Produto";
 
-           return View("~/Views/Produtos/_ProdutoForm.cshtml", Mapear(new Produto()));
+           return View("~/Areas/Admin/Views/Produtos/_ProdutoForm.cshtml", Mapear(new Produto()));
         }
 
         // POST: Produtos/Create
@@ -138,7 +140,7 @@ namespace Loja.Mvc.Controllers
             //return View(Mapear(produto));
             ViewBag.Title = "Editar Produto";
 
-            return View("~/Views/Produtos/_ProdutoForm.cshtml", Mapear(produto));
+            return View("~/Areas/Admin/Views/Produtos/_ProdutoForm.cshtml", Mapear(produto));
         }
 
         // POST: Produtos/Edit/5
