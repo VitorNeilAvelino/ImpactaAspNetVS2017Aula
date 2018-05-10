@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -19,9 +20,10 @@ namespace Loja.Mvc.Areas.Admin.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
+            throw new Exception("Teste");
             return View(Mapear(db.Produtos.ToList()));
         }
-
+            
         private List<ProdutoViewModel> Mapear(List<Produto> produtos)
         {
             var viewModel = new List<ProdutoViewModel>();

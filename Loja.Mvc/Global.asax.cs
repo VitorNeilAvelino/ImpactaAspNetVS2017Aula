@@ -19,6 +19,8 @@ namespace Loja.Mvc
 #else
             BundleTable.EnableOptimizations = true;
 #endif
+
+            log4net.Config.XmlConfigurator.Configure();
         }
     }
 }
