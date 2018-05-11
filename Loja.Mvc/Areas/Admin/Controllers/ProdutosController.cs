@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -16,11 +15,10 @@ namespace Loja.Mvc.Areas.Admin.Controllers
     {
         private LojaDbContext db = new LojaDbContext();
 
-        // GET: Produtos
         [AllowAnonymous]
         public ActionResult Index()
         {
-            throw new Exception("Teste");
+            //throw new Exception("Teste");
             return View(Mapear(db.Produtos.ToList()));
         }
             
@@ -59,7 +57,7 @@ namespace Loja.Mvc.Areas.Admin.Controllers
                 new SelectListItem { Text = c.Nome, Value = c.Id.ToString() }).ToList();
         }
 
-        // GET: Produtos/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -173,7 +171,7 @@ namespace Loja.Mvc.Areas.Admin.Controllers
             produto.Categoria = db.Categorias.Find(viewModel.CategoriaId);
         }
 
-        // GET: Produtos/Delete/5
+        [Authorize(Roles = "Master, Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -188,7 +186,8 @@ namespace Loja.Mvc.Areas.Admin.Controllers
             return View(Mapear(produto));
         }
 
-        // POST: Produtos/Delete/5
+        //[Authorize(Roles = "Super")]
+        [Authorize(Roles = "Master, Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

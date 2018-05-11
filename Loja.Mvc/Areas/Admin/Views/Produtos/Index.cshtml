@@ -5,9 +5,12 @@
 }
 
 <h2>Produtos</h2>
-<p>
-    @Html.ActionLink("Novo Produto", "Create")
-</p>
+@if (User.IsInRole("Master, Admin"))
+{
+    <p>
+        @Html.ActionLink("Novo Produto", "Create")
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -29,32 +32,35 @@
     </tr>
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td class="hidden-xs">
-            @Html.DisplayFor(modelItem => item.CategoriaNome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Preco)
-        </td>
-        <td class="hidden-xs">
-            @Html.DisplayFor(modelItem => item.Estoque)
-        </td>
-        <td class="hidden-xs">
-            @Html.DisplayFor(modelItem => item.Ativo)
-        </td>
-        <td class="hidden-xs">
-            @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Excluir", "Delete", new { id = item.Id })
-        </td>
-        <td class="visible-xs">
-            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "glyphicon glyphicon-edit", title = "Editar" }) |
-            @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "glyphicon glyphicon-eye-open", title = "Detalhes" }) |
-            @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "glyphicon glyphicon-remove", title = "Excluir" })
-        </td>
-    </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td class="hidden-xs">
+                @Html.DisplayFor(modelItem => item.CategoriaNome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Preco)
+            </td>
+            <td class="hidden-xs">
+                @Html.DisplayFor(modelItem => item.Estoque)
+            </td>
+            <td class="hidden-xs">
+                @Html.DisplayFor(modelItem => item.Ativo)
+            </td>
+            <td class="hidden-xs">
+                @Html.ActionLink("Detalhes", "Details", new { id = item.Id })
+                @if (User.IsInRole("Master, Admin"))
+                {
+                    @Html.ActionLink("| Editar", "Edit", new { id = item.Id })
+                    @Html.ActionLink("| Excluir", "Delete", new { id = item.Id })
+                }
+            </td>
+            <td class="visible-xs">
+                @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "glyphicon glyphicon-edit", title = "Editar" }) |
+                @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "glyphicon glyphicon-eye-open", title = "Detalhes" }) |
+                @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "glyphicon glyphicon-remove", title = "Excluir" })
+            </td>
+        </tr>
     }
 </table>

@@ -1,17 +1,13 @@
 ﻿using Loja.Dominio;
 using Loja.Repositorios.SqlServer.EFCodeFirst.Migrations;
 using Loja.Repositorios.SqlServer.EFCodeFirst.ModelConfiguration;
-using System;
-using System.Collections.Generic;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Loja.Repositorios.SqlServer.EFCodeFirst
 {
-    public class LojaDbContext : DbContext
+    public class LojaDbContext : IdentityDbContext<Usuario>
     {
         public LojaDbContext() : base("name=lojaConnectionString")
         {
