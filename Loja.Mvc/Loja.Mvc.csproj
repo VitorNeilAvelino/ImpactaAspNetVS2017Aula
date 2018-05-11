@@ -181,6 +181,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ClienteViewModel.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Validacoes\IdadeMinimaAttribute.cs" />
     <Compile Include="Models\ProdutoInserirViewModel.cs" />

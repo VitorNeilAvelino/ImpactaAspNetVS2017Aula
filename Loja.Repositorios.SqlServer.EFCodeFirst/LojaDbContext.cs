@@ -2,6 +2,7 @@
 using Loja.Repositorios.SqlServer.EFCodeFirst.Migrations;
 using Loja.Repositorios.SqlServer.EFCodeFirst.ModelConfiguration;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
@@ -17,6 +18,12 @@ namespace Loja.Repositorios.SqlServer.EFCodeFirst
         }
 
         public DbSet<Produto> Produtos { get; set; }
+
+        public static LojaDbContext Create()
+        {
+            return new LojaDbContext();
+        }
+
         public DbSet<Categoria> Categorias { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
