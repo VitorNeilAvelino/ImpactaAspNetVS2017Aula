@@ -1,8 +1,8 @@
-﻿@model Loja.Mvc.Models.ProdutoViewModel
+﻿@model Loja.Mvc.Areas.Admin.Models.ProdutoViewModel
 
 <h2>@ViewBag.Titulo</h2>
 
-@Html.Partial("~/Views/Produtos/_ProdutoForm.cshtml", Model)
+@Html.Partial("~/Areas/Admin/Views/Produtos/_ProdutoForm.cshtml", Model)
 
 <div>
     @Html.ActionLink("Voltar", "Index")

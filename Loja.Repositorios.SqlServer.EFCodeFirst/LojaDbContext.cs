@@ -1,6 +1,7 @@
 ﻿using Loja.Dominio;
 using Loja.Repositorios.SqlServer.EFCodeFirst.Migrations;
 using Loja.Repositorios.SqlServer.EFCodeFirst.ModelConfiguration;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Loja.Repositorios.SqlServer.EFCodeFirst
 {
-    public class LojaDbContext : DbContext
+    public class LojaDbContext : IdentityDbContext
     {
         public LojaDbContext() : base("name=lojaConnectionString")
         {

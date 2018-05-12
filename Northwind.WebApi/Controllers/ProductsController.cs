@@ -7,12 +7,14 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using Northwind.Repositorios.SqlServer.EFDbFirst;
 
 namespace Northwind.WebApi.Controllers
 {
     [RoutePrefix("api/products")]
+    //[EnableCors("*", "*", "*")]
     public class ProductsController : ApiController
     {
         private NorthwindModel db = new NorthwindModel();
@@ -43,19 +45,23 @@ namespace Northwind.WebApi.Controllers
 
         // PUT: api/Products/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutProducts(int id, Products products)
+        public IHttpActionResult PutProducts(int id, Products viewModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != products.ProductID)
+            if (id != viewModel.ProductID)
             {
                 return BadRequest();
             }
 
-            db.Entry(products).State = EntityState.Modified;
+            //db.Entry(viewModel).State = EntityState.Modified;
+
+            var produto = db.Products.Find(id);
+
+            db.Entry(produto).CurrentValues.SetValues(viewModel);
 
             try
             {

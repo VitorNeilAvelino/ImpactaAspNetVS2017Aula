@@ -4,21 +4,22 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Loja.Dominio;
-using Loja.Mvc.Models;
+using Loja.Mvc.Areas.Admin.Models;
 using Loja.Repositorios.SqlServer.EFCodeFirst;
 
-namespace Loja.Mvc.Controllers
+namespace Loja.Mvc.Areas.Admin.Controllers
 {
+    [Authorize]
     public class ProdutosController : Controller
     {
         private LojaDbContext db = new LojaDbContext();
 
-        // GET: Produtos
+        [AllowAnonymous]
         public ActionResult Index()
         {
+            //throw new Exception("Teste");
             return View(Mapear(db.Produtos.ToList()));
         }
 
@@ -62,7 +63,7 @@ namespace Loja.Mvc.Controllers
                 new SelectListItem { Text = c.Nome, Value = c.Id.ToString() }).ToList();
         }
 
-        // GET: Produtos/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -85,7 +86,7 @@ namespace Loja.Mvc.Controllers
         {
             ViewBag.Titulo = "Novo Produto";
 
-            return View("~/Views/Produtos/CreateOrEdit.cshtml", Mapear(new Produto()));
+            return View("~/Areas/Admin/Views/Produtos/CreateOrEdit.cshtml", Mapear(new Produto()));
         }
 
         // POST: Produtos/Create
@@ -108,7 +109,7 @@ namespace Loja.Mvc.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View("~/Views/Produtos/CreateOrEdit.cshtml", viewModel);
+            return View("~/Areas/Admin/Views/Produtos/CreateOrEdit.cshtml", viewModel);
         }
 
         private Produto Mapear(ProdutoViewModel viewModel)
@@ -140,7 +141,7 @@ namespace Loja.Mvc.Controllers
                 return HttpNotFound();
             }
 
-            return View(Mapear(produto));
+            return View("~/Areas/Admin/Views/Produtos/CreateOrEdit.cshtml", Mapear(produto));
         }
 
         // POST: Produtos/Edit/5
@@ -161,7 +162,7 @@ namespace Loja.Mvc.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(viewModel);
+            return View("~/Areas/Admin/Views/Produtos/CreateOrEdit.cshtml", viewModel);
         }
 
         private void Mapear(ProdutoViewModel viewModel, Produto produto)
@@ -171,7 +172,8 @@ namespace Loja.Mvc.Controllers
             produto.Categoria = db.Categorias.Find(viewModel.CategoriaId);
         }
 
-        // GET: Produtos/Delete/5
+        //[Authorize(Roles = "Chefe")]
+        [Authorize(Roles = "Admin, Gerente")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -186,7 +188,7 @@ namespace Loja.Mvc.Controllers
             return View(Mapear(produto));
         }
 
-        // POST: Produtos/Delete/5
+        [Authorize(Roles = "Admin, Gerente")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

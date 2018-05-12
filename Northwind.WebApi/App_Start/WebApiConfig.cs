@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -19,6 +20,8 @@ namespace Northwind.WebApi
                 .SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             config.Formatters.JsonFormatter
                 .SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
 
             // ToDo: testar
             //config.Formatters.JsonFormatter
