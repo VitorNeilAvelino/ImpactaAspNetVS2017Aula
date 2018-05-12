@@ -1,11 +1,13 @@
-﻿@model IEnumerable<Loja.Mvc.Models.ProdutoViewModel>
+﻿@using Loja.Mvc.Helpers
+
+@model IEnumerable<Loja.Mvc.Models.ProdutoViewModel>
 
 @{
     ViewBag.Title = "Produtos";
 }
 
 <h2>Produtos</h2>
-@if (User.IsInRole("Master, Admin"))
+@if (User.IsInRole("Master") || User.IsInRole("Admin"))
 {
     <p>
         @Html.ActionLink("Novo Produto", "Create")
@@ -50,9 +52,14 @@
             </td>
             <td class="hidden-xs">
                 @Html.ActionLink("Detalhes", "Details", new { id = item.Id })
-                @if (User.IsInRole("Master, Admin"))
+
+                @if (User.Identity.IsAuthenticated)
                 {
                     @Html.ActionLink("| Editar", "Edit", new { id = item.Id })
+                }
+
+                @if (User.IsInRole("Chefe") || User.HasClaim("Produto", "Excluir") )
+                {
                     @Html.ActionLink("| Excluir", "Delete", new { id = item.Id })
                 }
             </td>
