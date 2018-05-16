@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace Loja.Mvc.Controllers
 {
@@ -25,6 +21,13 @@ namespace Loja.Mvc.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult DefinirLinguagem(string linguagem)
+        {
+            Response.Cookies["linguagemSelecionada"].Value = linguagem;
+
+            return Redirect(Request.UrlReferrer.ToString());
         }
     }
 }
