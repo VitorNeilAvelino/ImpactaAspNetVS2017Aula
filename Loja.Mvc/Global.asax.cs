@@ -1,4 +1,6 @@
-﻿using System.Web;
+﻿using Loja.Mvc.Helpers;
+using System.Threading;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -21,6 +23,14 @@ namespace Loja.Mvc
 #endif
 
             log4net.Config.XmlConfigurator.Configure();
+        }
+
+        protected void Application_AcquireRequestState()
+        {
+            var cultura = CulturaHelper.ObterCultureInfo();
+
+            Thread.CurrentThread.CurrentCulture = cultura;
+            Thread.CurrentThread.CurrentUICulture = cultura;
         }
     }
 }

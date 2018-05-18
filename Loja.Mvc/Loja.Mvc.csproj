@@ -188,6 +188,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CulturaHelper.cs" />
     <Compile Include="Helpers\IdentityHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClienteViewModel.cs" />
@@ -344,6 +345,10 @@
     <ProjectReference Include="..\Loja.Repositorios.SqlServer.EFCodeFirst\Loja.Repositorios.SqlServer.EFCodeFirst.csproj">
       <Project>{1ebb58f8-1ddd-48c2-8ab8-fe2ae5052c33}</Project>
       <Name>Loja.Repositorios.SqlServer.EFCodeFirst</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Loja.Resources\Loja.Resources.csproj">
+      <Project>{eda9b922-1b3a-4001-aa2e-51f5716a7baf}</Project>
+      <Name>Loja.Resources</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
