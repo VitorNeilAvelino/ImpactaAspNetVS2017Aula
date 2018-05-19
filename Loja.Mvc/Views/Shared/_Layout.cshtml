@@ -21,7 +21,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Início", "Index", new { area = "", controller= "Home" })</li>
+                    <li>@Html.ActionLink("Início", "Index", new { area = "", controller = "Home" })</li>
                     <li>@Html.ActionLink("Sobre", "About", new { area = "", controller = "Home" })</li>
                     <li>@Html.ActionLink("Contato", "Contact", new { area = "", controller = "Home" })</li>
 
@@ -30,9 +30,10 @@
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Produtos", "Index", new { area = "Admin", controller = "Produtos" })</li>
                         </ul>
-                    </li>                    
-                
+                    </li>
                 </ul>
+                @Html.Partial("_CulturaPartial")
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>

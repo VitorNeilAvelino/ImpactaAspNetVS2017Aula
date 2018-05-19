@@ -26,5 +26,11 @@ namespace Loja.Mvc.Controllers
 
             return View();
         }
+
+        public ActionResult DefinirLinguagem(string linguagem)
+        {
+            Response.Cookies["linguagemSelecionada"].Value = linguagem;
+            return Redirect(Request.UrlReferrer.ToString());
+        }
     }
 }

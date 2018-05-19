@@ -3,16 +3,12 @@ using Loja.Repositorios.SqlServer.EFCodeFirst.Migrations;
 using Loja.Repositorios.SqlServer.EFCodeFirst.ModelConfiguration;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Loja.Repositorios.SqlServer.EFCodeFirst
 {
-    public class LojaDbContext : IdentityDbContext
+    public class LojaDbContext : IdentityDbContext<Usuario>
     {
         public LojaDbContext() : base("name=lojaConnectionString")
         {
@@ -22,6 +18,12 @@ namespace Loja.Repositorios.SqlServer.EFCodeFirst
         }
 
         public DbSet<Produto> Produtos { get; set; }
+
+        public static LojaDbContext Create()
+        {
+            return new LojaDbContext();
+        }
+
         public DbSet<Categoria> Categorias { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

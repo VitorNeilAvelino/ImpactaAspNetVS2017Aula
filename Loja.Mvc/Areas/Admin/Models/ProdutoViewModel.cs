@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using Loja.Resources;
 
 namespace Loja.Mvc.Areas.Admin.Models
 {
@@ -13,6 +11,7 @@ namespace Loja.Mvc.Areas.Admin.Models
 
         [Required]
         [StringLength(200)]
+        [Display(Name = nameof(Literal.NomeProdutoLabel), ResourceType = typeof(Literal))]
         public string Nome { get; set; }
 
         [Required]
@@ -27,6 +26,7 @@ namespace Loja.Mvc.Areas.Admin.Models
 
         [Required]
         [Display(Name = "Preço")]
+        [DataType(DataType.Currency)]
         public decimal Preco { get; set; }
 
         [Required]
