@@ -1,22 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Empresa.Dominio;
 using Empresa.Repositorios.SqlServer;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.Extensions.Configuration;
 
 namespace Empresa.Mvc.Controllers
 {
     public class ContatosController : Controller
     {
         private readonly EmpresaDbContext _context;
+        private readonly IDataProtector _protectorProvider;
 
-        public ContatosController(EmpresaDbContext context)
+        public ContatosController(EmpresaDbContext context, IDataProtectionProvider protectionProvider, 
+            IConfiguration configuration)
         {
             _context = context;
+            _protectorProvider = protectionProvider.CreateProtector(configuration.GetSection("ChaveCriptografia").Value);
         }
 
         // GET: Contatoes
@@ -54,10 +56,12 @@ namespace Empresa.Mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Email,Assunto,Mensagem")] Contato contato)
+        public async Task<IActionResult> Create(Contato contato)
         {
             if (ModelState.IsValid)
             {
+                contato.Senha = _protectorProvider.Protect(contato.Senha);
+
                 _context.Add(contato);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

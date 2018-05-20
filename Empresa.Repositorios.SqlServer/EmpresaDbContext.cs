@@ -7,7 +7,7 @@ namespace Empresa.Repositorios.SqlServer
     {
         public EmpresaDbContext(DbContextOptions options) : base(options)
         {
-            Database.EnsureCreated();
+            Database.Migrate();
         }
 
         public DbSet<Contato> Contatos { get; set; }
