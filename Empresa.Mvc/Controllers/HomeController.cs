@@ -29,21 +29,5 @@ namespace Empresa.Mvc.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Login(LoginViewModel viewModel)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(viewModel);
-            }
-
-            return View();
-        }
     }
 }

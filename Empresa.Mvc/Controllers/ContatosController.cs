@@ -9,16 +9,11 @@ using Microsoft.Extensions.Configuration;
 
 namespace Empresa.Mvc.Controllers
 {
-    public class ContatosController : Controller
+    public class ContatosController : BaseController
     {
-        private readonly EmpresaDbContext _context;
-        private readonly IDataProtector _protectorProvider;
-
-        public ContatosController(EmpresaDbContext context, IDataProtectionProvider protectionProvider, 
-            IConfiguration configuration)
+        public ContatosController(EmpresaDbContext context, IDataProtectionProvider protectionProvider,
+            IConfiguration configuration) : base(context, protectionProvider, configuration)
         {
-            _context = context;
-            _protectorProvider = protectionProvider.CreateProtector(configuration.GetSection("ChaveCriptografia").Value);
         }
 
         // GET: Contatoes
