@@ -14,15 +14,14 @@ namespace Empresa.Mvc.Controllers
         public ContatosController(EmpresaDbContext context, IDataProtectionProvider protectionProvider,
             IConfiguration configuration) : base(context, protectionProvider, configuration)
         {
+
         }
 
-        // GET: Contatoes
         public async Task<IActionResult> Index()
         {
             return View(await _context.Contatos.ToListAsync());
         }
 
-        // GET: Contatoes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -40,15 +39,11 @@ namespace Empresa.Mvc.Controllers
             return View(contato);
         }
 
-        // GET: Contatoes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Contatoes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Contato contato)
@@ -64,7 +59,6 @@ namespace Empresa.Mvc.Controllers
             return View(contato);
         }
 
-        // GET: Contatoes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,6 +67,7 @@ namespace Empresa.Mvc.Controllers
             }
 
             var contato = await _context.Contatos.SingleOrDefaultAsync(m => m.Id == id);
+
             if (contato == null)
             {
                 return NotFound();
@@ -80,14 +75,11 @@ namespace Empresa.Mvc.Controllers
             return View(contato);
         }
 
-        // POST: Contatoes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Email,Assunto,Mensagem")] Contato contato)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Email,Assunto,Mensagem")] Contato viewModel)
         {
-            if (id != contato.Id)
+            if (id != viewModel.Id)
             {
                 return NotFound();
             }
@@ -96,12 +88,17 @@ namespace Empresa.Mvc.Controllers
             {
                 try
                 {
+                    var contato = _context.Contatos.Find(viewModel.Id);
+
+                    _context.Entry(contato).CurrentValues.SetValues(viewModel);
+                    _context.Entry(contato).Property(c => c.Senha).IsModified = false;
                     _context.Update(contato);
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ContatoExists(contato.Id))
+                    if (!ContatoExists(viewModel.Id))
                     {
                         return NotFound();
                     }
@@ -112,10 +109,9 @@ namespace Empresa.Mvc.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(contato);
+            return View(viewModel);
         }
 
-        // GET: Contatoes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -133,7 +129,6 @@ namespace Empresa.Mvc.Controllers
             return View(contato);
         }
 
-        // POST: Contatoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

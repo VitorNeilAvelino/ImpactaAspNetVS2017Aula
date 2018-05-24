@@ -12,7 +12,9 @@ namespace Empresa.Mvc.Controllers
         public LoginController(EmpresaDbContext context, IDataProtectionProvider protectionProvider,
             IConfiguration configuration) : base(context, protectionProvider, configuration)
         {
+
         }
+
         public IActionResult Index()
         {
             return View();
@@ -26,7 +28,7 @@ namespace Empresa.Mvc.Controllers
                 return View(viewModel);
             }
 
-            var contato = _context.Contatos.SingleOrDefault(c => c.Email == viewModel.Email && 
+            var contato = _context.Contatos.SingleOrDefault(c => c.Email == viewModel.Email &&
                 _protectorProvider.Unprotect(c.Senha) == viewModel.Senha);
 
             if (contato == null)
