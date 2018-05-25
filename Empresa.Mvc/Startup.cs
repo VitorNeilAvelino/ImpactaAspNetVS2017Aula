@@ -22,7 +22,7 @@ namespace Empresa.Mvc
             services.AddMvc();
 
             services.AddDbContext<EmpresaDbContext>(options => options.UseSqlServer(
-                    Configuration.GetSection("EmpresaConnectionString").Value
+                    Configuration.GetConnectionString("EmpresaConnectionString")
                 ));
         }
 
