@@ -1,9 +1,13 @@
 ﻿using Empresa.Mvc.Models;
 using Empresa.Repositorios.SqlServer;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 
 namespace Empresa.Mvc.Controllers
 {
@@ -37,6 +41,35 @@ namespace Empresa.Mvc.Controllers
 
                 return View(viewModel);
             }
+
+            // 1. Install-Package Microsoft.AspNetCore.Authentication.Cookies
+            // 2. Startup.Configure
+            // 3. Configurar as permissões abaixo
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, contato.Nome),
+                new Claim(ClaimTypes.Email, contato.Email),
+
+                new Claim(ClaimTypes.Role, "Admin"),
+                new Claim(ClaimTypes.Role, "Consultor"),
+                new Claim(ClaimTypes.Role, "Contabil"),
+
+                new Claim("Contato", "Excluir")
+                // Citar as policies em Startup.ConfigureServices
+            };
+
+            var identidade = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identidade);
+
+            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+            return RedirectToAction("Index", "Contatos");
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
             return RedirectToAction("Index", "Contatos");
         }

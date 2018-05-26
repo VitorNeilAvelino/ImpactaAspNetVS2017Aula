@@ -6,9 +6,12 @@ using Empresa.Dominio;
 using Empresa.Repositorios.SqlServer;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Empresa.Mvc.Controllers
 {
+    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
     public class ContatosController : BaseController
     {
         public ContatosController(EmpresaDbContext context, IDataProtectionProvider protectionProvider,
@@ -17,6 +20,7 @@ namespace Empresa.Mvc.Controllers
 
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Contatos.ToListAsync());
@@ -39,12 +43,14 @@ namespace Empresa.Mvc.Controllers
             return View(contato);
         }
 
+        [AllowAnonymous]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Contato contato)
         {
@@ -59,6 +65,7 @@ namespace Empresa.Mvc.Controllers
             return View(contato);
         }
 
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -76,6 +83,7 @@ namespace Empresa.Mvc.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Email,Assunto,Mensagem")] Contato viewModel)
         {
@@ -112,6 +120,7 @@ namespace Empresa.Mvc.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Master")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -129,6 +138,7 @@ namespace Empresa.Mvc.Controllers
             return View(contato);
         }
 
+        [Authorize(Roles = "Master")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
