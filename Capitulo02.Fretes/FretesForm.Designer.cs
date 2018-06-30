@@ -124,6 +124,7 @@
             "RJ",
             "MG",
             "AM",
+            "BA",
             "Outros"});
             this.ufComboBox.Location = new System.Drawing.Point(63, 74);
             this.ufComboBox.Name = "ufComboBox";

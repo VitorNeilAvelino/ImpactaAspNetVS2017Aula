@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Capitulo02.Fretes
@@ -19,9 +13,18 @@ namespace Capitulo02.Fretes
 
         private void CalcularButton_Click(object sender, EventArgs e)
         {
-            if (ValidarFormulario())
+            var erros = ValidarFormulario();
+
+            if (erros.Count == 0)
             {
                 Calcular();
+            }
+            else
+            {
+                MessageBox.Show(string.Join(Environment.NewLine, erros),
+                    "Validação",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 
@@ -29,8 +32,8 @@ namespace Capitulo02.Fretes
         {
             var percentual = 0m;
             var valor = Convert.ToDecimal(valorTextBox.Text);
+            var nordeste = new List<string> { "BA", "PE", "AL" };
 
-            //ToDo: exemplificar novo switch do C# 7.
             switch (ufComboBox.Text.ToUpper())
             {
                 case "SP":
@@ -46,11 +49,13 @@ namespace Capitulo02.Fretes
                 case "AM":
                     percentual = 0.6m;
                     break;
-                default:
-                    percentual = 0.75m;
+                case var uf when nordeste.Contains(uf):
+                    percentual = 0.5m;
                     break;
                 case null:
-
+                    throw new NullReferenceException("Texto do combo UF não pode ser nulo.");
+                default:
+                    percentual = 0.75m;
                     break;
             }
 
@@ -71,57 +76,33 @@ namespace Capitulo02.Fretes
             totalTextBox.Text = ((1 + percentual) * valor).ToString("c");
         }
 
-        private bool ValidarFormulario()
+        private List<string> ValidarFormulario()
         {
-            //return true;
+            var erros = new List<string>();
 
             if (nomeTextBox.Text == string.Empty)
             {
-                MessageBox.Show("O campo Nome é obrigatório.",
-              "Validação",
-              MessageBoxButtons.OK,
-           MessageBoxIcon.Error);
-
-                return false;
+                erros.Add("O campo Nome é obrigatório.");
             }
 
             if (valorTextBox.Text == string.Empty)
             {
-                MessageBox.Show("O campo Valor é obrigatório.",
-                    "Validação",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-
-                return false;
+                erros.Add("O campo Valor é obrigatório.");
             }
             else
             {
-                try
+                if (!decimal.TryParse(valorTextBox.Text, out decimal valor))
                 {
-                    Convert.ToDecimal(valorTextBox.Text);
-                }
-                catch
-                {
-                    MessageBox.Show("O campo Valor está com formato inválido.",
-                        "Validação",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-
-                    return false;
+                    erros.Add("O campo Valor está com formato inválido.");
                 }
             }
 
             if (ufComboBox.SelectedIndex == -1)
             {
-                MessageBox.Show("Selecione a UF.",
-                    "Validação",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-
-                return false;
+                erros.Add("Selecione a UF.");
             }
 
-            return true;
+            return erros;
         }
     }
 }
