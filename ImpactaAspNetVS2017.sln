@@ -98,6 +98,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Empresa.Repositorios.SqlSer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Empresa.Mvc", "Empresa.Mvc\Empresa.Mvc.csproj", "{0832B0DF-FF79-4875-9CFC-E55EF1FBD848}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViagensOnline", "ViagensOnline", "{44E74730-7E54-4883-96B4-9B74FD382072}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViagensOnline.Dominio", "ViagensOnline.Dominio\ViagensOnline.Dominio.csproj", "{53A7FECA-170E-4975-9C93-0D51F4F4F655}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -224,6 +228,10 @@ Global
 		{0832B0DF-FF79-4875-9CFC-E55EF1FBD848}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0832B0DF-FF79-4875-9CFC-E55EF1FBD848}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0832B0DF-FF79-4875-9CFC-E55EF1FBD848}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53A7FECA-170E-4975-9C93-0D51F4F4F655}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53A7FECA-170E-4975-9C93-0D51F4F4F655}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53A7FECA-170E-4975-9C93-0D51F4F4F655}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53A7FECA-170E-4975-9C93-0D51F4F4F655}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -254,6 +262,7 @@ Global
 		{A2579CB4-2CDF-4076-B407-296EDAFDBC0C} = {02C88357-FDCC-48B1-BE81-1E5510A03B2B}
 		{675ED962-9455-4CE9-B279-B764B7D4B628} = {02C88357-FDCC-48B1-BE81-1E5510A03B2B}
 		{0832B0DF-FF79-4875-9CFC-E55EF1FBD848} = {02C88357-FDCC-48B1-BE81-1E5510A03B2B}
+		{53A7FECA-170E-4975-9C93-0D51F4F4F655} = {44E74730-7E54-4883-96B4-9B74FD382072}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CF2A6197-E629-49E9-9FD2-C73F4BD21901}
