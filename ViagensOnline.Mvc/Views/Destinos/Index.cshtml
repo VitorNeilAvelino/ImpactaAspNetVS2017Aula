@@ -1,0 +1,39 @@
+﻿@model List<ViagensOnline.Dominio.Destino>
+
+@{
+    ViewBag.Title = "Destinos";
+    var colunaAtual = 1;
+    var maxColunas = 4;
+}
+
+<div class="container">
+    <h2>Destinos</h2>
+    @foreach (var destino in Model)
+    {
+        if (colunaAtual % maxColunas == 1)
+        {
+            @:<div class="row">
+            }
+
+            <div class="col-md-3">
+                <div class="thumbnail">
+                    <div class="miniatura-destino">
+                        <a href="~/Imagens/Destinos/@destino.CaminhoFoto" target="_blank">
+                            <img src="~/Imagens/Destinos/@destino.CaminhoFoto" alt="@destino.Nome">
+                        </a>
+                    </div>
+                    <div class="caption">
+                        <p><b>@destino.Nome</b></p>
+                        <p>@destino.Cidade - @destino.Pais</p>
+                    </div>
+                </div>
+            </div>
+
+            if (colunaAtual % maxColunas == 0 || colunaAtual == Model.Count)
+            {
+            @:</div>
+        }
+
+        colunaAtual++;
+    }
+</div>
