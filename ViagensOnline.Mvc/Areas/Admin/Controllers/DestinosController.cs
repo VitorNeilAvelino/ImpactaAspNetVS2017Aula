@@ -12,6 +12,7 @@ using ViagensOnline.Repositorios.SqlServer;
 
 namespace ViagensOnline.Mvc.Areas.Admin.Controllers
 {
+    [Authorize]
     public class DestinosController : Controller
     {
         private ViagensOnlineDbContext db = new ViagensOnlineDbContext();
