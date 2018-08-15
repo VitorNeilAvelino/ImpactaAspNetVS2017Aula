@@ -13,7 +13,7 @@ namespace ViagensOnline.Repositorios.SqlServer.Tests
         {
             var destino = new Destino();
 
-            destino.CaminhoFoto = "Paulista.png";
+            destino.NomeImagem = "Paulista.png";
             destino.Cidade = "São Paulo";
             destino.Nome = "São Paulo";
             destino.Pais = "Brasil";

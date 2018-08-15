@@ -12,16 +12,15 @@ namespace ViagensOnline.Mvc.Areas.Admin.Models
         public string Nome { get; set; }
 
         [Required]
+        [Display(Name = "País")]
         public string Pais { get; set; }
 
         [Required]
         public string Cidade { get; set; }
 
-        [Required]
-        public string CaminhoFoto { get; set; }
+        public string CaminhoImagem { get; set; }
 
-        [Required]
-        [RegularExpression(@"(.png|.jpg|.gif)$", ErrorMessage = "Apenas arquivos de imagens são permitidos.")]
+        [Display(Name = "Foto")]
         public HttpPostedFileBase ArquivoFoto { get; set; }
     }
 }

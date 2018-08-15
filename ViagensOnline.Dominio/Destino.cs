@@ -10,6 +10,6 @@
 
         public string Cidade { get; set; }
         
-        public string CaminhoFoto { get; set; }
+        public string NomeImagem { get; set; }
     }
 }

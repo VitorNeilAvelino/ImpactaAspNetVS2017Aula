@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ViagensOnline.Dominio;
+using ViagensOnline.Mvc.Areas.Admin.Models;
 using ViagensOnline.Repositorios.SqlServer;
 
 namespace ViagensOnline.Mvc.Areas.Admin.Controllers
@@ -14,14 +15,38 @@ namespace ViagensOnline.Mvc.Areas.Admin.Controllers
     public class DestinosController : Controller
     {
         private ViagensOnlineDbContext db = new ViagensOnlineDbContext();
+        private string _caminhoImagensDestinos = ConfigurationManager.AppSettings["CaminhoImagensDestinos"];
 
-        // GET: Admin/Destinos
         public ActionResult Index()
         {
-            return View(db.Destinos.ToList());
+            return View(Mapear(db.Destinos.ToList()));
         }
 
-        // GET: Admin/Destinos/Details/5
+        private List<DestinoViewModel> Mapear(List<Destino> destinos)
+        {
+            var viewModels = new List<DestinoViewModel>();
+
+            foreach (var destino in destinos)
+            {
+                viewModels.Add(Mapear(destino));
+            }
+
+            return viewModels;
+        }
+
+        private DestinoViewModel Mapear(Destino destino)
+        {
+            var viewModel = new DestinoViewModel();
+
+            viewModel.Cidade = destino.Cidade;
+            viewModel.Id = destino.Id;
+            viewModel.Nome = destino.Nome;
+            viewModel.CaminhoImagem = Path.Combine(_caminhoImagensDestinos, destino.NomeImagem);
+            viewModel.Pais = destino.Pais;
+
+            return viewModel;
+        }
+
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -33,33 +58,59 @@ namespace ViagensOnline.Mvc.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            return View(destino);
+            return View(Mapear(destino));
         }
 
-        // GET: Admin/Destinos/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/Destinos/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nome,Pais,Cidade,CaminhoFoto")] Destino destino)
+        public ActionResult Create(DestinoViewModel viewModel)
         {
+            if (viewModel.ArquivoFoto == null)
+            {
+                ModelState.AddModelError(string.Empty, "É necessário enviar uma imagem.");
+            }
+            
             if (ModelState.IsValid)
             {
+                var destino = Mapear(viewModel);
+
+                SalvarFoto(viewModel.ArquivoFoto);
+
                 db.Destinos.Add(destino);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
-            return View(destino);
+            return View(viewModel);
         }
 
-        // GET: Admin/Destinos/Edit/5
+        private void SalvarFoto(HttpPostedFileBase arquivoFoto)
+        {
+            string caminhoVirtual = Path.Combine(_caminhoImagensDestinos, arquivoFoto.FileName);
+            string caminhoFisico = Request.MapPath(caminhoVirtual);
+
+            arquivoFoto.SaveAs(caminhoFisico);
+        }
+
+        private Destino Mapear(DestinoViewModel viewModel)
+        {
+            var destino = new Destino();
+
+            destino.Cidade = viewModel.Cidade;
+            destino.Id = viewModel.Id;
+            destino.Nome = viewModel.Nome;
+            destino.NomeImagem = viewModel.ArquivoFoto.FileName;
+            destino.Pais = viewModel.Pais;
+
+            return destino;
+        }
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -71,26 +122,32 @@ namespace ViagensOnline.Mvc.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            return View(destino);
+            return View(Mapear(destino));
         }
 
-        // POST: Admin/Destinos/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nome,Pais,Cidade,CaminhoFoto")] Destino destino)
+        public ActionResult Edit(DestinoViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
+                var destino = db.Destinos.Find(viewModel.Id);
+                db.Entry(destino).CurrentValues.SetValues(viewModel);
                 db.Entry(destino).State = EntityState.Modified;
+
+                if (viewModel.ArquivoFoto != null)
+                {
+                    SalvarFoto(viewModel.ArquivoFoto);
+                    destino.NomeImagem = viewModel.ArquivoFoto.FileName;
+                }
+
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
-            return View(destino);
+            return View(viewModel);
         }
 
-        // GET: Admin/Destinos/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -102,15 +159,17 @@ namespace ViagensOnline.Mvc.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            return View(destino);
+            return View(Mapear(destino));
         }
 
-        // POST: Admin/Destinos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Destino destino = db.Destinos.Find(id);
+
+            System.IO.File.Delete(Server.MapPath(Path.Combine(_caminhoImagensDestinos, destino.NomeImagem)));
+
             db.Destinos.Remove(destino);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -172,6 +172,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Imagens\Destinos\Dublin.jpg" />
+    <Content Include="Imagens\Destinos\London.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -180,6 +182,11 @@
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Destinos\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Destinos\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Destinos\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Destinos\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Destinos\Delete.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -209,8 +216,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Views\Destinos\" />
-    <Folder Include="Imagens\Destinos\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
