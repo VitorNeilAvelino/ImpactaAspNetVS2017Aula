@@ -149,6 +149,7 @@ namespace ViagensOnline.Mvc.Areas.Admin.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Master")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -165,6 +166,7 @@ namespace ViagensOnline.Mvc.Areas.Admin.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Master")]        
         public ActionResult DeleteConfirmed(int id)
         {
             Destino destino = db.Destinos.Find(id);
