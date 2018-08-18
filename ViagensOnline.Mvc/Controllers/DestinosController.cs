@@ -10,7 +10,7 @@ namespace ViagensOnline.Mvc.Controllers
     public class DestinosController : Controller
     {
         private ViagensOnlineDbContext _db = new ViagensOnlineDbContext();
-        // GET: Destinos
+
         public ActionResult Index()
         {
             return View(_db.Destinos.ToList());
